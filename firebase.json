@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "performance-gym-152d5",
     "public": ".",
     "ignore": [
       "firebase.json",
