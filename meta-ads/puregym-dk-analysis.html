@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PureGym DK — Ad Strategy Analysis</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#fff; color:#1a1a1a; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1.7; font-size:15px; }
+.container { max-width:960px; margin:0 auto; padding:40px 24px; }
+h1 { font-size:2rem; color:#111; margin-bottom:8px; font-weight:700; }
+h2 { font-size:1.4rem; color:#111; margin:32px 0 16px; font-weight:600; border-bottom:2px solid #eee; padding-bottom:8px; }
+h3 { font-size:1.1rem; color:#333; margin:20px 0 12px; font-weight:600; }
+p { margin-bottom:12px; color:#333; }
+.header { margin-bottom:40px; padding-bottom:24px; border-bottom:1px solid #e5e5e5; }
+.subtitle { color:#666; font-size:1rem; margin-top:4px; }
+.date { color:#999; font-size:0.85rem; margin-top:8px; }
+.stats-row { display:flex; gap:24px; margin:16px 0; flex-wrap:wrap; }
+.stat { background:#f8f9fa; border:1px solid #e5e5e5; border-radius:8px; padding:12px 20px; }
+.stat-number { font-size:2rem; font-weight:700; color:#111; }
+.stat-label { font-size:0.8rem; color:#666; text-transform:uppercase; letter-spacing:0.3px; }
+.strategy-box { background:#f8f9fa; border:1px solid #e5e5e5; border-radius:8px; padding:24px; margin:24px 0; }
+.takeaway { background:#fffbeb; border-left:4px solid #f59e0b; padding:16px; margin:16px 0; border-radius:0 6px 6px 0; }
+.takeaway-title { font-weight:600; color:#92400e; margin-bottom:8px; }
+ul { margin:12px 0; padding-left:24px; }
+li { margin-bottom:8px; color:#444; }
+.sort-bar { display:flex; align-items:center; gap:8px; margin:32px 0 -16px; padding:12px 16px; background:#f8f9fa; border:1px solid #e5e5e5; border-radius:8px; }
+.sort-label { font-size:0.8rem; font-weight:600; color:#666; text-transform:uppercase; margin-right:4px; }
+.sort-btn { padding:5px 14px; border:1px solid #ddd; border-radius:20px; cursor:pointer; font-size:0.8rem; background:#fff; color:#555; font-family:inherit; transition:all 0.15s; }
+.sort-btn:hover { border-color:#999; color:#111; }
+.sort-btn.active { background:#111; color:#fff; border-color:#111; }
+.funnel-section { margin:48px 0; padding:24px; background:#fafafa; border-radius:12px; border:1px solid #e5e5e5; }
+.funnel-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.funnel-number { background:#111; color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; flex-shrink:0; }
+.funnel-title { font-size:1.2rem; font-weight:600; color:#111; }
+.funnel-url { color:#666; font-size:0.85rem; margin-top:2px; }
+.ads-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; margin-top:20px; }
+.ad-card { background:#fff; border:1px solid #ddd; border-radius:8px; overflow:hidden; }
+.ad-card video, .ad-card img { width:100%; display:block; max-height:300px; object-fit:cover; }
+.no-media { background:#f0f0f0; height:160px; display:flex; align-items:center; justify-content:center; color:#999; font-size:0.85rem; }
+.ad-card-body { padding:14px; }
+.ad-badges { display:flex; gap:5px; margin-bottom:10px; flex-wrap:wrap; }
+.badge { display:inline-block; padding:2px 7px; border-radius:4px; font-size:0.7rem; font-weight:600; text-transform:uppercase; }
+.badge-video { background:#e0e7ff; color:#3730a3; }
+.badge-image { background:#cffafe; color:#0e7490; }
+.badge-days { background:#dcfce7; color:#166534; }
+.badge-ratio { background:#f3f4f6; color:#6b7280; }
+.badge-dur { background:#fef3c7; color:#92400e; }
+.ad-copy { font-size:0.8rem; color:#888; margin-bottom:10px; font-style:italic; border-left:2px solid #eee; padding-left:8px; }
+.ad-detail { margin-bottom:8px; }
+.ad-label { font-weight:600; font-size:0.75rem; color:#666; text-transform:uppercase; letter-spacing:0.3px; }
+.ad-text { font-size:0.88rem; color:#333; margin-top:2px; }
+footer { margin-top:48px; padding-top:24px; border-top:1px solid #e5e5e5; color:#999; font-size:0.85rem; text-align:center; }
+.landing-card { background:#fff; border:1px solid #ddd; border-radius:8px; overflow:hidden; margin-bottom:20px; }
+.landing-card img { width:100%; max-height:420px; object-fit:cover; object-position:top; display:block; border-bottom:1px solid #eee; }
+.landing-card-body { padding:16px; }
+.landing-meta { display:flex; flex-wrap:wrap; gap:16px; margin-top:12px; }
+.landing-meta-item { font-size:0.88rem; flex:1; min-width:200px; }
+.funnel-type-pill { display:inline-block; padding:3px 10px; border-radius:12px; font-size:0.72rem; font-weight:700; text-transform:uppercase; margin-bottom:10px; letter-spacing:0.4px; }
+.pill-bofu { background:#fee2e2; color:#991b1b; }
+.pill-tofu { background:#dcfce7; color:#166534; }
+.pill-mofu { background:#e0e7ff; color:#3730a3; }
+.pill-content { background:#f3f4f6; color:#6b7280; }
+.pill-post { background:#fef9c3; color:#713f12; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <h1>PureGym DK — Ad Strategy Analysis</h1>
+  <p class="subtitle">71 aktive annoncer &nbsp;·&nbsp; 7 funnels &nbsp;·&nbsp; Ældste annonce kører i 67 dage</p>
+  <p class="date">Genereret 31. May 2026 &nbsp;·&nbsp; Kilde: Meta Ads Library</p>
+</div>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-number">71</div><div class="stat-label">Aktive annoncer</div></div>
+  <div class="stat"><div class="stat-number">53</div><div class="stat-label">Video-annoncer</div></div>
+  <div class="stat"><div class="stat-number">18</div><div class="stat-label">Billede-annoncer</div></div>
+  <div class="stat"><div class="stat-number">7</div><div class="stat-label">Unikke funnels</div></div>
+  <div class="stat"><div class="stat-number">67</div><div class="stat-label">Maks. dage kørende</div></div>
+</div>
+
+<h2>Strategioversigt</h2>
+<div class="strategy-box">
+  <h3>Overordnet tilgang</h3>
+  <p>PureGym DK kører en massiv UGC-domineret strategi med to parallelle spor: (1) <strong>Brand/entertainment</strong> — humoristisk og relaterbar content der bygger affinity uden at sælge, (2) <strong>Hard conversion</strong> — systematiske tilbudsannoncer med 50% rabat + studierabat 40%.</p>
+  <ul>
+    <li><strong>54 af 71 annoncer</strong> startede i maj 2026 — de kører en aggressiv kampagne frem til 3. juni-deadline</li>
+    <li><strong>14 annoncer fra marts</strong> (67 dage kørende) er de bevist performende — primært UGC-humor og endorfin-budskaber</li>
+    <li><strong>Reformer-serien</strong> er ny testning: educational content + challenge-format for at markedsføre Pilates-tilbud</li>
+    <li><strong>Billedannoncer</strong> er rent A/B-test: 3-4 personer × 2 tilbudstyper × 2 deadline-CTAs = 16+ identiske layouts</li>
+  </ul>
+</div>
+<div class="strategy-box">
+  <h3>Kreative mønstre</h3>
+  <ul>
+    <li><strong>POV/humor</strong> (longest-running): "POV: Når du træner med den ven der altid starter på mandag" — ultra-relaterbar, stopper scroll</li>
+    <li><strong>Home/lifestyle hook</strong>: Kaffe, sofa, kontor — starter IKKE i gymmet, skaber pattern interrupt</li>
+    <li><strong>Staff som face</strong>: PureGym-staff (teal hoodie/t-shirt) som autentiske talspersoner — bygger tillid og community</li>
+    <li><strong>Reformer-push</strong>: Dedikeret instruktør-serie om Pilates reformer — 6+ varianter tyder på stærk performance</li>
+    <li><strong>Endorfin-platformen</strong>: "Træn kroppen = giv sindet en high-five" er den konsistente brandlinje — kører i 15+ varianter</li>
+  </ul>
+</div>
+<div class="takeaway">
+  <div class="takeaway-title">Vigtigste takeaways for PGNS</div>
+  <ul>
+    <li>UGC-humor med relaterbare hverdagssituationer kører i 67 dage = bevist winner-format</li>
+    <li>Home/køkken/kontor-hooks som åbning er stærkere end at starte i gymmet — pattern interrupt virker</li>
+    <li>Staff som talspersoner med branded tøj er konsistent og troværdig — brug egne medarbejdere</li>
+    <li>Aggressiv A/B-test på statiske annoncer: de tester PERSON, ikke budskab — budskabet er låst (50% + deadline)</li>
+    <li>Reformer-serien tyder på at PureGym ekspanderer beyond styrketræning — boutique-segmentet er i spil</li>
+  </ul>
+</div>
+
+<div class="sort-bar">
+  <span class="sort-label">Sorter annoncer:</span>
+  <button class="sort-btn active" data-sort="newest" onclick="sortAds('newest')">Nyest til ældst</button>
+  <button class="sort-btn" data-sort="oldest" onclick="sortAds('oldest')">Ældst til nyest (longest-running)</button>
+</div>
+
+<h2>Annoncer per funnel</h2>
+
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">1</div>
+    <div>
+      <div class="funnel-title">50% Tilbud — Halv pris på medlemskab</div>
+      <div class="funnel-url">https://www.puregym.dk/buy_membership/step1 &nbsp;·&nbsp; 35 annoncer &nbsp;·&nbsp; Ældste: 2026-05-27</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-buy-membership.jpg" alt="Buy Membership Landing Page">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-bofu">BOFU — Direkte signup</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Tilmeld dig Danmarks største fitnesskæde nu" — Spar 50% helt frem til 1. august 2026 + oprettelse 0 kr.</p>
+      <p><strong>Tilbud:</strong> Priser fra 134,50 DKK/md. (normalpris 269). 5-trins checkout: Vælg center → Vælg medlemskab → Add-ons → Dine oplysninger → Betaling.</p>
+      <p><strong>Strategi:</strong> Direkte konverteringsflow med urgency-deadline og prisankring. Brugeren guides sekventielt frem til betaling uden distraktioner.</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Klar fremskridtsindikator (5 trin), deadline skaber urgency, 50% rabat tydeligt fremhævet, lav friktion i step 1.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> 5 trin giver høj drop-off risiko, ingen social proof på selve signup-flowet, mangler testimonials eller tryghedssignaler.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-12.jpg"><source src="assets/puregym-dk-video-12.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">18.7s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Staff i sort PureGym-trøje til kamera — 'Et godt tip til dig for at komme godt i gang'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Professionel talking-head, lyst gym, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Tips til begyndere</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Hjælpsomhed, tillid</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Direkte CTA-copy, sænker barrieren for nye</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Lidt lang intro</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-29">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-13.jpg"><source src="assets/puregym-dk-video-13.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">2 dage</span><span class="badge badge-dur">32.4s</span>
+        </div>
+        <div class="ad-copy">Det koster ikke en formue at få det godt! 🤸🧘 Spar 50% frem til 1. august + 0 kr. i oprettelse. Tilbuddet slutter snart. ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Tatoveret mand laver morgenkaffe ('Verdens bedste far'-krus)</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Home UGC, intimt, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Fitness passer ind i dit liv som travl far</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Varme, humor, relatabilitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Totalt uventet hook stopper scroll</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">PureGym-link svag uden kontekst</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-20.jpg"><source src="assets/puregym-dk-video-20.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">14.0s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. Lige ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">To kvinder ved 'IMPRESS YOURSELF'-væg med blokke</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Lyst moderne gym, UGC, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Træning med veninder, empowerment</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Social, fun</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">'IMPRESS YOURSELF' branding stærk</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Ingen tydelig funnel</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-26.jpg"><source src="assets/puregym-dk-video-26.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">13.8s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:14 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Sort skærm</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Intro-card</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Offer-intro</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Dramatik</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Kontrast</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet standalone</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-27.jpg"><source src="assets/puregym-dk-video-27.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">15.0s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">PureGym-logo over ældre kvinde + PT-scene</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret brand-integration, teal/gul grafik, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PT 2for1 tilbud</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Tillid, omsorg</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Viser faktisk PT-relation</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Logo overlay kan føles forceret</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-28.jpg"><source src="assets/puregym-dk-video-28.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">16.0s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:10 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde på kontor laver lunge — 'POV: Du er startet til reformer'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Office UGC, hverdags-humor, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Reformer ændrer kroppen og dagligdagen</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Humor, genkendelighed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Ekstremt stærk humor-hook, uventet setting</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Reformer-link skal fremgå af copy</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-30.jpg"><source src="assets/puregym-dk-video-30.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">13.8s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. Lige ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Sort skærm</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Intro-card</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Offer</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Dramatik</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Kontrast</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet standalone</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-32.jpg"><source src="assets/puregym-dk-video-32.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">11.0s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:11 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">'RUN like the wind' treadmill — variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Brand interior, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Løb inde</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Gym-branding</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Variant</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-33.jpg"><source src="assets/puregym-dk-video-33.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">11.0s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:06 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">'RUN like the wind' anden vinkel</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Brand interior</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Løb inde</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Anderledes vinkel</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Tæt variant</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-34.jpg"><source src="assets/puregym-dk-video-34.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">14.4s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. 0:00 ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Ribbevæg/stativbarre med member i baggrund</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Atmosfærisk gym-interior, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PureGym har det fulde udstyr</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Muligheder</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Viser faciliteter</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Ingen person/hook</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-35.jpg"><source src="assets/puregym-dk-video-35.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">6.0s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde bench-presser med PT + logo — variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Brand PT-scene</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PT tilbud</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Support, styrke</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Troværdig</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Duplikat</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-36.jpg"><source src="assets/puregym-dk-video-36.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">11.4s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:15 50...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Ung kvinde selfie mod kamera, 'remember WHY you started'-mural</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Selfie UGC, intimt, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Tilbud + motivation — tilmeld dig nu</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Motivation, intimitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Øjenkontakt + motivationsmural = stærkt combo</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Juridisk tekst distraherer</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-37.jpg"><source src="assets/puregym-dk-video-37.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">18.2s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Lav vinkel squat — variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Autentisk træning</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Autenticitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Real</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Duplikat</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-39.jpg"><source src="assets/puregym-dk-video-39.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">14.4s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:18 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Ribbevæg variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Atmosfærisk</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Faciliteter</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Muligheder</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Gym-æstetik</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Svag hook</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-40.jpg"><source src="assets/puregym-dk-video-40.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">6.0s</span>
+        </div>
+        <div class="ad-copy">Det koster ikke en formue at få det godt! 🤸🧘 Spar 50% frem til 1. august + 0 kr. i oprettelse. Tilbuddet slutter snart. ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Spin-instruktør variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Gruppe-fitness</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Energetisk</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Variant</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-41.jpg"><source src="assets/puregym-dk-video-41.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">14.0s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:06 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">'IMPRESS YOURSELF'-scene variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Lyst gym</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Empowerment</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Social</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Branding stærk</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Variant</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-42.jpg"><source src="assets/puregym-dk-video-42.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">15.0s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. Lige ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">PT-scene variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Brand-integration</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PT tilbud</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Support</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Troværdig</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Duplikat</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-43.jpg"><source src="assets/puregym-dk-video-43.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">11.4s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. 0:00 ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">'Remember WHY you started' selfie variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Selfie UGC</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Motivation + tilbud</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Intimitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Øjenkontakt</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Variant</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-44.jpg"><source src="assets/puregym-dk-video-44.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">10.5s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. Lige ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde i køkken laver ben-extension — 'Jeg siger ikke at jeg er startet til reformer'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Home UGC, hverdags-humor, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Reformer-humor — ændrer kroppen ubevidst</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Humor, genkendelighed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Uventet setting + witty humor, stærk hook</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Tilbud i outro kan mismatch tonen</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-28">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-45.jpg"><source src="assets/puregym-dk-video-45.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">3 dage</span><span class="badge badge-dur">13.1s</span>
+        </div>
+        <div class="ad-copy">Det koster ikke en formue at få det godt! 🤸🧘 Spar 50% frem til 1. august + 0 kr. i oprettelse. Tilbuddet slutter snart. ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Tatoveret fyr danser ved teal/hvide vægge, PureGym-logo øverst</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC studierabat, ung energi, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40%</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Fun, ungdommelighed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Tilpas autentisk til ung målgruppe</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Dans-hook kan virke tvungen</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-46.jpg"><source src="assets/puregym-dk-video-46.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">65.3s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:14 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Reformer-challenge lang version — 'Jeg kramper'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC humor, challenge-format, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Prøv reformer — crosstraining er hårdt</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Humor</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Same stærke hook som video 01</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Bruger samme kreative som video 01</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-47.jpg"><source src="assets/puregym-dk-video-47.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">1:1</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">9.2s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Reformer-instruktør på reformer — 'Det bedste ved reformer'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Educational talking-head, lyst reformer-rum, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Reformer aktiverer nye muskelgrupper</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Nysgerrighed, tillid</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Expert-voice bygger autoritet</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Langsom åbning</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-48.jpg"><source src="assets/puregym-dk-video-48.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">1:1</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">12.3s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Reformer-instruktør forklarer bevægelse med hænderne</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Educational continuation, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Reformer-teknik og fornemmelse</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Tillid, lyst til at prøve</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Autentisk forklaring</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Del af serie, svag standalone</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-49.jpg"><source src="assets/puregym-dk-video-49.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">1:1</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">10.9s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Reformer-instruktør smiler, forklarer arm-bevægelse</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Educational, varmt lys, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Reformer er anderledes og godt</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Glæde, tillid</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Smil + åben gestus bygger tillid</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Serie-del</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-28">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-50.jpg"><source src="assets/puregym-dk-video-50.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">1:1</span><span class="badge badge-days">3 dage</span><span class="badge badge-dur">15.5s</span>
+        </div>
+        <div class="ad-copy">Det koster ikke en formue at få det godt! 🤸🧘 Spar 50% frem til 1. august og få oprettelsen til 0 kr. Tilbuddet slutter s...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Reformer-instruktør forklarer fornemmelse efter session</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Talking-head, afslappet, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Du bruger kroppen på en dejlig måde</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Velvære</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Emotionel payoff</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Serie-del</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-51.jpg"><source src="assets/puregym-dk-video-51.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">15.0s</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. Lige ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde jump-squats med PureGym-logo</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret brand-integration, energetisk, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PT-offer, aktiv træning</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi, styrke</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Dynamisk visuel, clean logo</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Generisk</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-53.jpg"><source src="assets/puregym-dk-video-53.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span><span class="badge badge-dur">16.3s</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. 0:00 / 0:11 Sp...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde på ClimbMill — 'BAR' GØR DET' hvide bogstaver + PureGym-logo øverst</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Motivationel brand-content, 4:5, varm energi</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Bare gør det — start dit PureGym-membership</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Motivation, urgency</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Stærkt motivationsbudskab, RUN-mural synlig</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Mangler specifikt tilbud</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-29">
+      <img src="assets/puregym-dk-image-01.jpg" alt="Ad 28" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">2 dage</span>
+        </div>
+        <div class="ad-copy">Det koster ikke en formue at få det godt! 🤸🧘 Spar 50% frem til 1. august + 0 kr. i oprettelse. Tilbuddet slutter snart. ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-28">
+      <img src="assets/puregym-dk-image-02.jpg" alt="Ad 29" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">3 dage</span>
+        </div>
+        <div class="ad-copy">Det koster ikke en formue at få det godt! 🤸🧘 Spar 50% frem til 1. august + 0 kr. i oprettelse. Tilbuddet slutter snart. ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-03.jpg" alt="Ad 30" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. 0:00 ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-05.jpg" alt="Ad 31" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. Lige ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-06.jpg" alt="Ad 32" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. 0:00 ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-08.jpg" alt="Ad 33" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. 0:00 ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-09.jpg" alt="Ad 34" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Vi har alt, du skal bruge – vi mangler kun dig! 🙏 Spar 50%, når du melder dig ind hos PureGym. Meld dig ind i dag. 0:00 ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-14.jpg" alt="Ad 35" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Et godt tilbud på en god start 🙏🤸‍♂️ Lige nu sparer du 50% på dit medlemskab – og får oprettelsen gratis. Spar 50% frem ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div></div>
+</div>
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">2</div>
+    <div>
+      <div class="funnel-title">Generel — Feel PureGym Good</div>
+      <div class="funnel-url">https://www.puregym.dk/ &nbsp;·&nbsp; 15 annoncer &nbsp;·&nbsp; Ældste: 2026-03-25</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-homepage.jpg" alt="PureGym Homepage">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-tofu">TOFU — Brand-hub</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Danmarks største fitness-fællesskab" — 128 centre, 1,7M app-downloads, 350+ daglige hold, 150+ personlige trænere.</p>
+      <p><strong>Tilbud:</strong> Multiple parallelle tilbud: 50%-kampagne, Studierabat 40% i 12 mdr, 2for1 PT, Reformer Pilates, konkurrence om 1 års medlemskab.</p>
+      <p><strong>Strategi:</strong> Bred TOFU-hub der fanger alle målgrupper med skalbevis og diverst tilbudsunivers. Multiple indgangspunkter til konvertering.</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Imponerende social proof via tal (128 centre, 1,7M), multiple tilbud fanger bredt, klar "Bliv Medlem"-knap i navigation.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> For mange tilbud skaber valg-paralysis, ingen enkelt klar konverteringssti, brugere kan gå tabt i scrolling frem for at handle.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-02.jpg"><source src="assets/puregym-dk-video-02.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">5.0s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:05 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Staff i teal hoodie stiller bænk — 'POV: Når du træner med den ven der altid starter på mandag'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC, autentisk gym, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Træning er sjovere med venner</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Humor, genkendelighed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Ekstremt relaterbar, universal situation</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet eksplicit produkt-budskab</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-03.jpg"><source src="assets/puregym-dk-video-03.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">15.9s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:16 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Midaldrende mand på crosstrainer, undertekst 'Jeg bliver glad'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Autentisk member-optagelse, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Træning = endorfiner = glæde</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Positiv, tilgængelig</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Real member, troværdig, bred appeal</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Svag visuel åbning</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-05.jpg"><source src="assets/puregym-dk-video-05.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">10.0s</span>
+        </div>
+        <div class="ad-copy">Skal det være en god dag? Eller en rigtig god dag? 🤸 0:00 / 0:10 God dag? Eller rigtig god dag? Feel PureGym Good...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Farverig fluffy maskot-figur i PureGym-indgang</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Branded, legende, poleret, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PureGym er sjovt og inkluderende</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Overraskelse, glæde</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Ekstremt høj scroll-stop-power</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Uklart om målgruppe, svagt produkt-budskab</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-07.jpg"><source src="assets/puregym-dk-video-07.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">7.1s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:07 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Staff teal hoodie sidder på bænk — 'Hvorfor? Vi træner jo bare'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Talking-head UGC, direkte kamera, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PT giver rationalet bag motion</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Indsigt, tillid</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Staff-face = troværdighed, direkte tone</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Åbning stopper ikke scroll effektivt</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-19">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-08.jpg"><source src="assets/puregym-dk-video-08.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">12 dage</span><span class="badge badge-dur">34.6s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:35 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">'En dag i mit liv | Studiedag | PureGym | Veninde hygge' — kvinde drikker vand</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">VLOG, student-æstetik, autentisk, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">PureGym passer ind i studielivet</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Livsstil, FOMO, community</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Perfekt studierabat-funnel, relaterbar 18-25</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">For upoleret for ældre målgruppe</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-09.jpg"><source src="assets/puregym-dk-video-09.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">15.0s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:15 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">PureGym logo på gradient-baggrund</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Brand outro, rent, poleret, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Se tilbud på hjemmesiden</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Brand-awareness</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Ren og klar</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Svag standalone — fungerer som outro</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-10.jpg"><source src="assets/puregym-dk-video-10.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">12.1s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:12 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde ind ad drejekors — 'POV: Mig før træning vs. efter træning'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC, autentisk, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Træning transformerer dit humør</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Genkendelighed, humor</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Universal hook, PureGym-branding naturlig</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Udslidt trope men effektiv</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-15.jpg"><source src="assets/puregym-dk-video-15.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">12.1s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:32 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde danser i gym — 'Dem: Hvor får du energi fra? Mig: Koffein, playliste og træning'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC, energisk, PureGym-gym synlig, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Træning er del af energi-opskriften</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi, glæde, fun</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Energetisk opener, bred identitets-appeal</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet konkret tilbud</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-17.jpg"><source src="assets/puregym-dk-video-17.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">12.8s</span>
+        </div>
+        <div class="ad-copy">Vi træner kroppen og endorfinerne 🤸 Det er win-win! 0:00 / 0:12 Træn kroppen = Giv sindet en high-five Bliv stærkere i k...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">To personer på cardiomaskiner — variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC, gym, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Endorfin/mental sundhed</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Positiv</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Autentisk social gym</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Tæt variant af video 06</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-04">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-22.jpg"><source src="assets/puregym-dk-video-22.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">27 dage</span><span class="badge badge-dur">10.2s</span>
+        </div>
+        <div class="ad-copy">Skal det være en god dag? Eller en rigtig god dag? 🤸 0:00 / 0:17 God dag? Eller rigtig god dag? Feel PureGym Good Learn ...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Skaldet mand smiler bredt til kamera, juridisk tekst overlay</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Talking-head, teal vægge, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">50% tilbud direkte og personligt</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Tillid, entusiasme</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Glad ansigt + øjenkontakt = konvertering</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Juridisk tekst distraherer</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-31.jpg"><source src="assets/puregym-dk-video-31.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">6.0s</span>
+        </div>
+        <div class="ad-copy">Madopskrifter fra PureGym 🍽🧾 Giv dig i kast med PureGym's smagfulde opskrifter! Find inspiration, ingredienser og fremga...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde bench-presser med PT + PureGym-logo overlay</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret brand-integration, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">2for1 personlig træning</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Styrke, support</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Direkte PT-demonstration</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">For poleret til organic feed</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-29">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-38.jpg"><source src="assets/puregym-dk-video-38.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">2 dage</span><span class="badge badge-dur">13.8s</span>
+        </div>
+        <div class="ad-copy">Når reformer er life 🙃 #puregymdk #reformer #gymhumor 0:00 / 0:16...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Sort skærm</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Intro-card</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Offer</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Dramatik</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Kontrast</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet standalone</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-29">
+      <img src="assets/puregym-dk-image-11.jpg" alt="Ad 13" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">169:300</span><span class="badge badge-days">2 dage</span>
+        </div>
+        <div class="ad-copy">Der vil være tegn 🤸 #puregymdk #reformer #gymhumor 0:00 / 0:10...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-30">
+      <img src="assets/puregym-dk-image-16.jpg" alt="Ad 14" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">1 dage</span>
+        </div>
+        <div class="ad-copy">Oplev Reformer Pilates – det er ikke uden grund, det er hypet! 🔥🤸 Træningen er både sjov og effektiv – prøv det i PureGy...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-29">
+      <img src="assets/puregym-dk-image-18.jpg" alt="Ad 15" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">2 dage</span>
+        </div>
+        <div class="ad-copy">Oplev Reformer Pilates – det er ikke uden grund, det er hypet! 🔥🤸 Træningen er både sjov og effektiv – prøv det i PureGy...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div></div>
+</div>
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">3</div>
+    <div>
+      <div class="funnel-title">Studierabat — 40% på UNLIMITED</div>
+      <div class="funnel-url">https://www.puregym.dk/studierabat &nbsp;·&nbsp; 11 annoncer &nbsp;·&nbsp; Ældste: 2026-05-18</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-studierabat.jpg" alt="Studierabat Landing Page">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-mofu">MOFU — Segment-specifik</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Studierabat hos PureGym" — Brug koden STUDIERABAT og få 40% rabat på Unlimited de næste 12 måneder + oprettelse 0 kr.</p>
+      <p><strong>Tilbud:</strong> 40% på Unlimited i 12 mdr. til studerende 18-29 år. Inkluderer alle centre, 350+ daglige hold (Reformer/Hyrox mod gebyr), åbent 05-24, medbring-en-ven 4x/mdr. Deadline: 3. juni 2026.</p>
+      <p><strong>Strategi:</strong> Segment-specifik landingside med enkelt fokus og deadline-urgency. FAQ-sektion fjerner typiske købsbarrierer. Støttes af social/videnskabelig argumentation (træning forbedrer studieresultater).</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Klart enkelt-tilbud, deadline skaber urgency, FAQ fjerner tvivl effektivt, alle benefits tydeligt oplistet, god segment-match.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> Annoncerne kan køre videre efter 3. juni-deadline og skabe forvirring. Side bør opdateres med nyt tilbud løbende.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-05-18">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-06.jpg"><source src="assets/puregym-dk-video-06.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span><span class="badge badge-dur">12.8s</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 0:0...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde + mand på cardiomaskiner i høj energi</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC, lyst gym, social, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Endorfiner — træn kroppen = giv sindet high-five</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi, positivitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Social gym-atmosfære, community-feel</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Blød intro, ingen klar hook</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-21.jpg"><source src="assets/puregym-dk-video-21.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span><span class="badge badge-dur">13.8s</span>
+        </div>
+        <div class="ad-copy">Studierabat! Spar 40% på UNLIMITED-medlemskabet i et helt år + gratis oprettelse 🤩 Adgang til alle centre og hold – og t...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Sort skærm — mørk intro-card</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Dramatisk åbning</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Intro til offer</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Spænding</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Kontrast stopper scroll</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet standalone</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-23.jpg"><source src="assets/puregym-dk-video-23.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">13 dage</span><span class="badge badge-dur">25.0s</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 Stu...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Frikadeller med agurk og rød sauce plated — food</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Foodie-æstetik, poleret, 1:1</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Sund mad + træning hænger sammen</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Overraskelse, appetit</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Pattern interrupt — ingen andre gym-brands viser mad</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">PureGym-link uklar</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-25.jpg"><source src="assets/puregym-dk-video-25.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span><span class="badge badge-dur">6.0s</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 0:0...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Spin-instruktør med mikrofon + PureGym-logo overlay</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Professionel gruppe-fitness, mørk grafisk baggrund, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Gruppe-fitness hos PureGym</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi, community</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Instruktørs entusiasme smittende</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Lidt for poleret til organic feed</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-52.jpg"><source src="assets/puregym-dk-video-52.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">13 dage</span><span class="badge badge-dur">29.4s</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 0:0...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Reformer-instruktør sidder på reformer — 'muskler man ikke er vant til'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Educational, intimt rum, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Reformer aktiverer specifikke muskelgrupper</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Nysgerrighed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Specific claim overbevisende</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Serie-del 6/6</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <img src="assets/puregym-dk-image-04.jpg" alt="Ad 6" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 Stu...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-27">
+      <img src="assets/puregym-dk-image-07.jpg" alt="Ad 7" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">4 dage</span>
+        </div>
+        <div class="ad-copy">Studierabat! Spar 40% på UNLIMITED-medlemskabet i et helt år + gratis oprettelse 🤩 Adgang til alle centre og hold – og t...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <img src="assets/puregym-dk-image-10.jpg" alt="Ad 8" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 Stu...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <img src="assets/puregym-dk-image-12.jpg" alt="Ad 9" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 0:0...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <img src="assets/puregym-dk-image-13.jpg" alt="Ad 10" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 Stu...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-18">
+      <img src="assets/puregym-dk-image-17.jpg" alt="Ad 11" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">13 dage</span>
+        </div>
+        <div class="ad-copy">Som studerende sparer du lige nu 40% på dit UNLIMITED-medlemskab og får oprettelsen gratis når du melder dig ind! 🤩🤸 0:0...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '40%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Studierabat 40% på UNLIMITED i 12 mdr. + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div></div>
+</div>
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">4</div>
+    <div>
+      <div class="funnel-title">Løb & Inspiration</div>
+      <div class="funnel-url">https://www.puregym.dk/inspiration/loebetraening &nbsp;·&nbsp; 7 annoncer &nbsp;·&nbsp; Ældste: 2026-03-25</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-loebetraening.jpg" alt="Løbetræning Landing Page">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-content">TOFU — Content hub</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Løbetræning — Kom godt i gang med din løbetræning" — Artikler om løb for alle niveauer fra begynder til marathon.</p>
+      <p><strong>Tilbud:</strong> Ingen direkte tilbud. Hub med løbe-artikler: opvarmning, styrkeøvelser til løbere, 5km-programmer, løbebånds-tips, maratontræning.</p>
+      <p><strong>Strategi:</strong> SEO/content marketing — indfanger folk i tidlig research-fase. Blød konvertering via value-first content → tillid → medlemskab.</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Value-first approach opbygger tillid, indfanger intent tidligt i beslutningsprocessen, bred relevant indhold til målgruppen.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> Ingen offer eller CTA over fold — betalte annoncer sender varm trafik til en side uden konverteringssti. Høj bounce-risiko fra paid traffic.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-03-26">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-01.jpg"><source src="assets/puregym-dk-video-01.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">66 dage</span><span class="badge badge-dur">65.3s</span>
+        </div>
+        <div class="ad-copy">Ny serie 🎬 Hvad sker der, når man bytter sin træning ud med noget HELT andet? I første episode smider reformer queen, So...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Mand kramper på reformer — 'Challenge: Byt træning' + 'Jeg kramper'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">UGC humor, 9:16, lyst reformer-rum</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Prøv crosstraining — det rammer muskler du glemte</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Humor + overraskelse</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Stærkt stoppende billede, relaterbar situation, tekst-on-screen</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Ingen tydelig CTA i intro</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-11.jpg"><source src="assets/puregym-dk-video-11.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">17.2s</span>
+        </div>
+        <div class="ad-copy">Drømmer du om at komme i gang med løb? 🏃 Vi guider dig med de bedste råd til begyndere. Klik og læs mere! 0:00 / 0:17 Ko...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Muskuløs mand løber i efterårsskov</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Cinematisk outdoor, naturlys, 4:5</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Løb starter ude — fortsæt inde</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Frihed, ambition</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Smuk visuel kvalitet</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet tekst-hook</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-18.jpg"><source src="assets/puregym-dk-video-18.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">16.7s</span>
+        </div>
+        <div class="ad-copy">Drømmer du om at komme i gang med løb? 🏃 Vi guider dig med de bedste råd til begyndere. Klik og læs mere! 0:00 / 0:31 Ko...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Mand løber i gym-gang — 'Hvordan jeg får det sådan her?'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">POV gym, bevægelses-blur, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Viser fysisk resultat, hook-spørgsmål</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Nysgerrighed, ambition</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Spørgsmål inviterer til at se mere</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Svag billedkvalitet</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-04-14">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-19.jpg"><source src="assets/puregym-dk-video-19.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">47 dage</span><span class="badge badge-dur">17.2s</span>
+        </div>
+        <div class="ad-copy">Vil du i gang med at løbe – uden at gå kold? 🏃 Få 3 enkle tips til en god start. Læs mere her! 0:00 / 0:17 Læs mere om l...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Mand løber i efterårsskov — variant</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Outdoor cinematisk</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Løb/inspiration</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Frihed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Smuk kvalitet</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Duplikat af 11/16</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-12">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-24.jpg"><source src="assets/puregym-dk-video-24.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">19 dage</span><span class="badge badge-dur">11.0s</span>
+        </div>
+        <div class="ad-copy">Vil du i gang med at løbe – uden at gå kold? 🏃 Få 3 enkle tips til en god start. Læs mere her! 0:00 / 0:17 Læs mere om l...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">'RUN like the wind'-væg, person løber forbi treadmill</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Brand interior, energetisk, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Løb inde hos PureGym</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Energi, aktivitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Stærk motivations-mural branding</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Intet personligt ansigt</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-04-14">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-29.jpg"><source src="assets/puregym-dk-video-29.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">47 dage</span><span class="badge badge-dur">18.2s</span>
+        </div>
+        <div class="ad-copy">Vil du i gang med at løbe – uden at gå kold? 🏃 Få 3 enkle tips til en god start. Læs mere her! 0:00 / 0:31 Læs mere om l...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Lav vinkel squat-scene, ultra-UGC</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Ultra-UGC, low-production, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Autentisk træning</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Autenticitet</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Troværdig, ingen polering</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Svag åbning, mangler hook</div></div>
+      </div>
+    </div>
+    <div class="ad-card" data-start-date="2026-05-29">
+      <img src="assets/puregym-dk-image-15.jpg" alt="Ad 7" loading="lazy">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Image</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">2 dage</span>
+        </div>
+        <div class="ad-copy">Ny serie 🎬 Hvad sker der, når man bytter sin træning ud med noget HELT andet? I første episode smider reformer queen, So...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Stor '50%' tekst på teal→rød gradient</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Poleret branded static, 4:5, gradient-baggrund, udklippet person</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Spar 50% frem til 1. august + 0 kr. oprettelse, deadline 3. juni</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Urgency, pris-fokus</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Klar pris + deadline = direkte konverteringsdriver, systematisk A/B testing</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Meget ensartet serie — 16+ varianter af samme layout</div></div>
+      </div>
+    </div></div>
+</div>
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">5</div>
+    <div>
+      <div class="funnel-title">Personlig Træning — 2for1</div>
+      <div class="funnel-url">https://www.puregym.dk/personlig-traening/2for1 &nbsp;·&nbsp; 1 annoncer &nbsp;·&nbsp; Ældste: 2026-03-25</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-2for1-pt.jpg" alt="2for1 Personlig Træning Landing Page">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-bofu">BOFU — Specifik tilbudsside</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Tilbud lige nu: 2 for 1 på personlig træning" — To personer. Én personlig træner. Del prisen.</p>
+      <p><strong>Tilbud:</strong> Del PT-sessioner med en partner og split prisen. Forløbet inkluderer teknik, variation og personlig tilpasning til begge. Kræver login for køb.</p>
+      <p><strong>Strategi:</strong> Unik social PT-pakke der fjerner den typiske pris-indvending ved at dele cost med en ven/partner. FAQ-sektion rydder op i spørgsmål om forløbet.</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Unik vinkel (social PT), pris-barrieren håndteres elegant via deling, motivationseffekt af at træne med en makker, FAQ.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> Kræver login → høj friktion for potentielle nye kunder, ingen priser synlige på siden, svær at konvertere cold traffic.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-04.jpg"><source src="assets/puregym-dk-video-04.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">9:16</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">7.7s</span>
+        </div>
+        <div class="ad-copy">Få hjælp til at komme ordentligt i gang! Læs mere om, hvordan en personlig træner kan hjælpe dig og din makker på puregy...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Tomt gym med kettlebells — 'POV: Deler et træningsforløb'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Cinematisk, atmosfærisk, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Del din rejse, community</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Inspiration, fællesskab</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">'You started'-wall stærk branding</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Mangler personligt ansigt</div></div>
+      </div>
+    </div></div>
+</div>
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">6</div>
+    <div>
+      <div class="funnel-title">Ny i Fitness</div>
+      <div class="funnel-url">https://www.puregym.dk/inspiration/ny-i-fitness &nbsp;·&nbsp; 1 annoncer &nbsp;·&nbsp; Ældste: 2026-03-25</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-ny-i-fitness.jpg" alt="Ny i Fitness Landing Page">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-content">TOFU — Empati-drevet content</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Ny i fitness? — Få hjælp til at komme godt i gang med træning" — Artikler og guides til nybegyndere.</p>
+      <p><strong>Tilbud:</strong> Ingen direkte tilbud. Content hub med begynderguides: selvtillid i fitness, grundlæggende øvelser, træningsmaskiner til begyndere, 5 tips til træningsstart.</p>
+      <p><strong>Strategi:</strong> Empati-drevet content der fjerner "gym intimidation" og bygger tillid hos folk der overvejer at starte. Blød konvertering via identifikation og tryghed.</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Empatisk hook (selvtillid), fjerner frygt for at starte i gym, hjælper nybegyndere føle sig velkomne og ikke dømte.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> Ingen synlig CTA eller tilbud, lang vej til signup. Fungerer bedst som retargeting-destination, ikke TOFU cold traffic.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-03-25">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-14.jpg"><source src="assets/puregym-dk-video-14.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">67 dage</span><span class="badge badge-dur">10.0s</span>
+        </div>
+        <div class="ad-copy">Drømmer du om at komme i gang med træning? Vi har samlet de bedste tips til en god start. 0:00 / 0:19 Kom godt i gang me...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde på sofa med telefon — 'POV: Når motivationen pludselig rammer'</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Home UGC, dagligstue, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Motivation slår til uventet — vær klar</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Humor, genkendelighed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Pre-gym moment resonerer stærkt</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Ingen gym-visuals i åbningen</div></div>
+      </div>
+    </div></div>
+</div>
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">7</div>
+    <div>
+      <div class="funnel-title">Åbningstider & Info</div>
+      <div class="funnel-url">https://www.puregym.dk/information &nbsp;·&nbsp; 1 annoncer &nbsp;·&nbsp; Ældste: 2026-04-16</div>
+    </div>
+  </div>
+  <div class="landing-card">
+    <img src="assets/landing-pages/landing-information.jpg" alt="Information Landing Page">
+    <div class="landing-card-body">
+      <span class="funnel-type-pill pill-post">POST-CONVERSION — Onboarding</span>
+      <h3>Landing Page Analyse</h3>
+      <p><strong>Headline:</strong> "Bliv helt klar til din træning — Velkommen til PureGym" — Guide til nye medlemmer om app, åbningstider, regler og holdtræning.</p>
+      <p><strong>Tilbud:</strong> Ingen tilbud. Onboarding-side med: app-download, QR-adgang, holdtræningsbooking, træningstips, nyhedsmailstilmelding.</p>
+      <p><strong>Strategi:</strong> Post-konvertering onboarding der reducerer churn hos nye medlemmer ved at hjælpe dem komme i gang med alle features. Reducerer "jeg bruger det ikke" drop-off.</p>
+      <div class="landing-meta">
+        <div class="landing-meta-item"><strong>✅ Styrker:</strong> Klar struktur, app-download fremhævet, hjælper nye medlemmer aktivere sig — reducerer sandsynligvis churn.</div>
+        <div class="landing-meta-item"><strong>⚠️ Svagheder:</strong> Upassende destination for cold traffic Meta-annonce — siden forudsætter man allerede er medlem. Sandsynligvis en retargeting-annonce eller fejlkonfiguration.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ads-grid">
+    <div class="ad-card" data-start-date="2026-04-16">
+      <video controls preload="none" poster="assets/posters/puregym-dk-poster-16.jpg"><source src="assets/puregym-dk-video-16.mp4" type="video/mp4"></video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span><span class="badge badge-ratio">4:5</span><span class="badge badge-days">45 dage</span><span class="badge badge-dur">31.0s</span>
+        </div>
+        <div class="ad-copy">Drømmer du om at komme i gang med at træne? 🏃 Vi har fleksible åbningstider, så du kan træne, når det passer dig. Læs me...</div>
+        <div class="ad-detail"><div class="ad-label">🪝 Hook</div><div class="ad-text">Kvinde løber mod kamera i efterårspark</div></div><div class="ad-detail"><div class="ad-label">🎨 Visuel stil</div><div class="ad-text">Cinematisk, outdoor, 9:16</div></div><div class="ad-detail"><div class="ad-label">💬 Budskab</div><div class="ad-text">Kom godt i gang med løb</div></div><div class="ad-detail"><div class="ad-label">💭 Emotion</div><div class="ad-text">Ambition, frihed</div></div><div class="ad-detail"><div class="ad-label">✅ Styrker</div><div class="ad-text">Stærkt visuelt</div></div><div class="ad-detail"><div class="ad-label">⚠️ Svagheder</div><div class="ad-text">Variant af video 11</div></div>
+      </div>
+    </div></div>
+</div>
+
+<footer>Genereret 31. May 2026 &nbsp;·&nbsp; Kilde: Meta Ads Library &nbsp;·&nbsp; PureGym DK (Page ID: 45454344776)</footer>
+</div>
+<script>
+function sortAds(order) {
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.sort-btn[data-sort="' + order + '"]').classList.add('active');
+  document.querySelectorAll('.ads-grid').forEach(function(grid) {
+    var cards = Array.from(grid.querySelectorAll('.ad-card'));
+    cards.sort(function(a, b) {
+      var da = new Date(a.dataset.startDate || '2000-01-01');
+      var db = new Date(b.dataset.startDate || '2000-01-01');
+      return order === 'newest' ? db - da : da - db;
+    });
+    cards.forEach(function(c) { grid.appendChild(c); });
+  });
+}
+</script>
+</body>
+</html>
