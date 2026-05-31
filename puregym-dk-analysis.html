@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PureGym DK (Fitness World) — Ad Strategy Analysis</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #fff;
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.7;
+  font-size: 15px;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2rem; color: #111; margin-bottom: 8px; font-weight: 700; }
+h2 { font-size: 1.4rem; color: #111; margin: 40px 0 16px; font-weight: 600; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+h3 { font-size: 1.05rem; color: #333; margin: 20px 0 12px; font-weight: 600; }
+p { margin-bottom: 12px; color: #333; }
+.header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid #e5e5e5; }
+.header .subtitle { color: #666; font-size: 1rem; margin-top: 4px; }
+.header .date { color: #999; font-size: 0.85rem; margin-top: 8px; }
+.rebrand-note {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  color: #0369a1;
+  margin-top: 12px;
+}
+
+/* Strategy Section */
+.strategy-box {
+  background: #f8f9fa;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.strategy-box h3 { margin-top: 0; color: #111; }
+.funnel-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 16px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+.flow-node {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 14px;
+  text-align: center;
+  font-size: 0.83rem;
+  line-height: 1.4;
+}
+.flow-node strong { display: block; color: #111; font-size: 0.88rem; }
+.flow-arrow { color: #9ca3af; font-size: 1.2rem; }
+.takeaway {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 6px 6px 0;
+}
+.takeaway-title { font-weight: 600; color: #92400e; margin-bottom: 8px; }
+ul { margin: 12px 0; padding-left: 24px; }
+li { margin-bottom: 8px; color: #444; }
+
+/* Funnel Sections */
+.funnel-section {
+  margin: 48px 0;
+  padding: 28px;
+  background: #fafafa;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+}
+.funnel-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.funnel-number {
+  background: #111;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.funnel-title { font-size: 1.1rem; font-weight: 700; color: #111; }
+.funnel-url { font-size: 0.82rem; color: #888; margin-top: 2px; }
+.funnel-desc { font-size: 0.9rem; color: #555; margin-bottom: 20px; padding: 12px 16px; background: #fff; border-radius: 6px; border: 1px solid #e5e5e5; }
+
+/* Ad Grid */
+.ads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+.ad-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ad-card img, .ad-card video {
+  width: 100%;
+  display: block;
+  background: #111;
+}
+.ad-card img { object-fit: cover; max-height: 320px; }
+.ad-card video { max-height: 320px; }
+.ad-card-body { padding: 14px; }
+.ad-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.badge-video { background: #e0e7ff; color: #3730a3; }
+.badge-image { background: #cffafe; color: #0e7490; }
+.badge-tofu { background: #dcfce7; color: #166534; }
+.badge-mofu { background: #e0f2fe; color: #0369a1; }
+.badge-bofu { background: #fee2e2; color: #991b1b; }
+.badge-variant { background: #f3f4f6; color: #6b7280; }
+.badge-ratio { background: #f5f3ff; color: #6d28d9; }
+.ad-card-title { font-weight: 700; font-size: 0.92rem; color: #111; margin-bottom: 12px; }
+.ad-detail { margin-bottom: 9px; }
+.ad-label {
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.ad-text { font-size: 0.88rem; color: #444; line-height: 1.5; }
+.ad-strength { color: #166534 !important; }
+.ad-weakness { color: #b91c1c !important; }
+.variant-note {
+  background: #f9fafb;
+  border-left: 3px solid #9ca3af;
+  padding: 10px 12px;
+  margin: 8px 0 0;
+  font-size: 0.83rem;
+  color: #6b7280;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.stat-box {
+  background: #f8f9fa;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 14px 20px;
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+.stat-number { font-size: 1.8rem; font-weight: 800; color: #111; }
+.stat-label { font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+
+footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e5e5;
+  color: #999;
+  font-size: 0.83rem;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>PureGym DK — Ad Strategy Analysis</h1>
+  <p class="subtitle">Tidligere Fitness World Danmark · Meta Ads Library · Komplet kreativ strategi</p>
+  <p class="date">Genereret 30. maj 2026 · Kilde: Meta Ads Library · Side-ID: 45454344776</p>
+  <div class="rebrand-note">ℹ️ <strong>Rebrand-note:</strong> Fitness World Danmark blev overtaget af britiske PureGym i 2020 og omdøbt til PureGym DK i maj 2023. Alle aktive annoncer køres nu under PureGym DK-brandet.</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-box"><div class="stat-number">57</div><div class="stat-label">Billeder i library</div></div>
+  <div class="stat-box"><div class="stat-number">49</div><div class="stat-label">Videoer i library</div></div>
+  <div class="stat-box"><div class="stat-number">3</div><div class="stat-label">Kreative spor</div></div>
+  <div class="stat-box"><div class="stat-number">100%</div><div class="stat-label">Dansk målretning</div></div>
+</div>
+
+<!-- STRATEGY OVERVIEW -->
+<h2>📊 Strategioversigt</h2>
+
+<div class="strategy-box">
+  <h3>Overordnet tilgangsmodel: Pris-drevet acquisition med UGC-brand lag</h3>
+  <p>PureGym DK kører en todelt Meta-strategi: <strong>~70% direkte konverteringsannoncer</strong> drevet af aggressive prisrabatter og tidsbegrænsede tilbud, og <strong>~30% brand/awareness-videoer</strong> i UGC-stil (POV-format) der opbygger kulturel tilhørshed og sænker barrieren for nye medlemmer.</p>
+  <p>Prisargumentet er kernen i alt statisk creative: enten en % rabat på månedspris, gratis oprettelse (0 kr.), eller en ekstremt lav introductory price (1 kr./md.). Der er ingen testimonials, ingen facilitetsgennemgange — udelukkende price anchoring og urgency.</p>
+  <ul>
+    <li><strong>Primary weapon:</strong> Deadlines på hvert eneste tilbud ("SLUTTER [DATO]") — klassisk FOMO-mekanik</li>
+    <li><strong>Price anchoring:</strong> Visuel strikethrough (99kr → 0kr) + "SPAR 50%" synliggør det tabte beløb</li>
+    <li><strong>Video creative:</strong> Ingen hårde CTAs, ren brand-opbygning via humor og genkendelighed</li>
+    <li><strong>Bred demografi:</strong> Yngre kvinder, ældre mænd, grupper — testning af personassegmenter</li>
+    <li><strong>Formatdækning:</strong> 9:16 (primær), 4:5 (feed), 16:9 (landscape/YouTube) — alle placements dækkede</li>
+  </ul>
+</div>
+
+<div class="funnel-flow">
+  <div class="flow-node"><strong>TOFU</strong>POV-videoer<br>Humor &amp; relatabilitet</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node"><strong>TOFU/MOFU</strong>Livsstils-billeder<br>"Træn fra 249 kr./md."</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node"><strong>BOFU</strong>Pris-annoncer<br>"SPAR 50% — SLUTTER [DATO]"</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node"><strong>CTA</strong>"FIND CENTER"<br>→ puregym.dk</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node"><strong>Konvertering</strong>Tilmelding<br>Online / i center</div>
+</div>
+
+<div class="strategy-box">
+  <h3>Kreativ testingstrategi</h3>
+  <p>PureGym DK kører systematisk A/B-testing langs tre dimensioner:</p>
+  <ul>
+    <li><strong>Deadline-variants:</strong> Identisk design, skiftet slutdato — tester urgency vs. procrastination (image-02 vs. image-03: samme 0kr-oprettelse, deadline 19. aug. vs. 30. juli)</li>
+    <li><strong>Prisbudskab-variants:</strong> Samme offer pakket forskelligt — "SPAR 50%", "0 KR. OPRETTELSE", "TRÆN FRA 249 KR./MD.", "1 KR./MD." — tester hvad der performer bedst for segment</li>
+    <li><strong>Visuel stil:</strong> Rød chevron-baggrund (arv fra Fitness World) vs. teal-til-coral gradient (PureGym nyt brand) — sandsynligvis retargeting vs. cold audience</li>
+    <li><strong>Format-variants:</strong> 9:16 + 4:5 + 16:9 af samme kampagne for placeringsoptimering</li>
+    <li><strong>Målgruppesegmentering via creative:</strong> Ældre mand (image-10) vs. ung kvinde (image-06) vs. gruppe (image-09) — samme pris, forskellig person</li>
+  </ul>
+</div>
+
+<div class="takeaway">
+  <div class="takeaway-title">💡 Key Takeaways</div>
+  <ul>
+    <li><strong>Pris er det eneste brand-løfte i statiske annoncer</strong> — ingen emotionel differentiering, ingen facility-kvalitet, ingen community-argumentation. Svaghed: let at kopiere af konkurrenter.</li>
+    <li><strong>POV-videoer kører som en separat brand-motor</strong> — humoristisk, selvironisk tone bygger sympati uden at sælge direkte. Meget TikTok-native, sandsynligvis Reels-placering.</li>
+    <li><strong>Ingen member transformation stories</strong> — den mest overbevisende form for social proof i fitnessbranchen er fraværende i hele library.</li>
+    <li><strong>Older demographic er eksplicit adresseret</strong> (image-10: ældre mand) — potentielt et underserved segment der konverterer bedre på "lav pris" end yngre.</li>
+    <li><strong>Food/wellness content (image-04, video-04)</strong> peger mod en bredere wellness-positionering — kan være tesning af en ny strategisk retning post-rebrand.</li>
+    <li><strong>Manager featured i UGC-video</strong> (poster-02: PureGym Manager-hoodie) — autentisk "behind the brand" tilgang, øger troværdighed.</li>
+    <li><strong>Hvad der mangler:</strong> Facilitetsgennemgange, gruppefitnessklasser showcase, testimonials, "sammenlign os med konkurrenter"-annoncer.</li>
+  </ul>
+</div>
+
+<!-- ═══════════ FUNNEL 1: BOFU - PRIS/TILBUD ═══════════ -->
+<h2>🎯 Kreative spor</h2>
+
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">1</div>
+    <div>
+      <div class="funnel-title">BOFU — Pris &amp; Tilbudsannoncer</div>
+      <div class="funnel-url">CTA → "FIND CENTER" → puregym.dk/centre</div>
+    </div>
+  </div>
+  <div class="funnel-desc">
+    Det klart dominerende spor. Rene konverteringsannoncer med aggressiv rabat, gratis oprettelse og hård deadline. Formålet er direkte tilmelding — ingen opvarmning, ingen storytelling. Fungerer bedst til retargeting og varme audiences der allerede kender brandet.
+  </div>
+
+  <div class="ads-grid">
+
+    <!-- image-01 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-01.jpg" alt="Spar 50% frem til 1. november">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-bofu">BOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">Spar 50% — Rød chevron variant</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"SPAR 50%" i mega-font på rød baggrund — stopper scrollet med aggressiv kontrast og tal</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">SPAR 50% FREM TIL 1. NOVEMBER + 0KR. I OPRETTELSE · SLUTTER 3. SEPTEMBER · CTA: "FIND CENTER"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Urgency + FOMO + deal-hunting instinkt</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Dobbelt rabat-budskab (50% + 0kr oprettelse), klar deadline, minimal friction til CTA</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Ingen grund til at vælge PureGym frem for konkurrenterne — kun prisdifferentiering, ingen kvalitetsargument</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-02 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-02.jpg" alt="99kr crossed out 0kr oprettelse">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-bofu">BOFU</span>
+          <span class="badge badge-ratio">4:5</span>
+        </div>
+        <div class="ad-card-title">0 kr. oprettelse — Strikethrough variant</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">Visuel strikethrough: "99KR." overstreget → "0KR." — klassisk price anchoring der aktiverer tab-aversion</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">99KR. [overstreget] / 0KR. I OPRETTELSE* · SLUTTER 19. AUGUST</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Deal-triumph, "kloge forbruger"-følelse</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Strikethrough er en af de mest effektive price anchoring-teknikker. Teal farve (nyt PureGym brand) — frisk og positiv</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Ingen billede af facilities/mennesker — ren tekst-ad, lav emotionel forbindelse</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-03 (variant) -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-03.jpg" alt="0kr oprettelse variant">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-variant">Variant</span>
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-bofu">BOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">0 kr. oprettelse — Deadline-variant (30. juli)</div>
+        <div class="variant-note">
+          <strong>A/B variant af image-02:</strong> Identisk design, ændret til 9:16 format og deadline rykket til 30. juli. Sandsynligvis Stories/Reels placering vs. feed. Deadline-testing: måler om kortere frist øger conversion rate.
+        </div>
+      </div>
+    </div>
+
+    <!-- image-05 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-05.jpg" alt="Spar 50% gradient variant">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-bofu">BOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">Spar 50% — Teal gradient variant (vinter)</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"Spar 50%" på blødt teal-til-coral gradient — mere rolig og premium-følelse end rød version</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">Spar 50% frem til 1. marts + 0 kr. i oprettelse · Slutter 4. februar</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">New Year motivation + value</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Gradient-æstetik er mere "scroll-stoppende" end flad farve — passer til Reels-miljø. Nyt PureGym brand look.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Lav kontrast på teksten — svær at læse i feed ved lille størrelse</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-07 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-07.jpg" alt="1 kr per måned">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-bofu">BOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">Træn for 1 kr./md. — Ekstrem introductory price</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"1 kr." — absurd lav pris stopper scrollet med ren nysgerrighed</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">Træn for 1 kr./md. frem til 1. februar + 0 kr. i oprettelse · Slutter 14. januar</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Shock value + "too good to be true" nysgærrighed</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Pattern interrupt — "1 kr." er utrolig effektiv som scroll-stopper. Typisk Nytårs-kampagne-mekanik. Loss leader der sænker barrieren til prøve-medlemskab.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Risiko for at tiltrække lavkvalitets-leads der churner hurtigt. Devaluerer brand over tid hvis overbrugt.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-08 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-08.jpg" alt="Spar 50% landscape">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-bofu">BOFU</span>
+          <span class="badge badge-ratio">16:9</span>
+        </div>
+        <div class="ad-card-title">Spar 50% — Landscape/feed-variant</div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">SPAR 50% FREM TIL 1. OKTOBER + 0 KR. I OPRETTELSE · SLUTTER 5. AUGUST</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Eneste 16:9 format i sættet — dækker Facebook desktop feed og muligvis YouTube pre-roll</div>
+        </div>
+        <div class="variant-note">
+          Samme kampagnekoncept som image-01, adapteret til landscape-format. Sikrer dækning på alle placements.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ads-grid -->
+</div><!-- /funnel-section 1 -->
+
+
+<!-- ═══════════ FUNNEL 2: MOFU - LIFESTYLE + PRIS ═══════════ -->
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">2</div>
+    <div>
+      <div class="funnel-title">MOFU — Livsstilsbilleder med prisargument</div>
+      <div class="funnel-url">CTA → "FIND CENTER" → puregym.dk/centre</div>
+    </div>
+  </div>
+  <div class="funnel-desc">
+    Hybridannoncer der kombinerer ægte fotografier af mennesker i træning med et pris-overlay. Lidt varmere end rene prisannoncer — giver social proof og identifikation, men forankrer stadig med pris. Egnet til cold audiences der endnu ikke kender brandet.
+  </div>
+
+  <div class="ads-grid">
+
+    <!-- image-06 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-06.jpg" alt="Træn fra 249 kr - kvinde">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-mofu">MOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">"Træn fra 249 kr./md." — Ung kvinde i træning</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">Kvinde med gul pandebånd i intens træning — energisk, aspirational. "TRÆN FRA 249 KR." i bold yellow.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">TRÆN FRA 249 KR./MD. · "FIND CENTER" (teal CTA-knap)</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Aspiration + tilgængelighed ("jeg kan også")</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Menneskefoto med identifikation. Gul accent skaber energi og brand-konsistens. Pris er tilgængeligt nok til ikke at skræmme.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Ingen urgency — ingen deadline → lavere conversion rate end de tidsbegrænsede annoncer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-09 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-09.jpg" alt="Træn fra 249 kr - gruppe">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-mofu">MOFU</span>
+          <span class="badge badge-ratio">4:5</span>
+        </div>
+        <div class="ad-card-title">"Træn fra 249 kr./md." — Gruppevariant med spinning</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">Tre smilende mennesker på spinning-cykler i dramatisk neon-belysning — community og energi</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">TRÆN FRA 249 KR./MD. · "FIND CENTER"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Belonging, social energi, glæde ved træning</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Diversitet i cast (køn, alder, etnicitet) signalerer inklusion. Neon-belysning giver premium facilitetsfornemmelse. Gruppe-dynamik appellerer til sociale trænere.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">249 kr./md. er ikke i sig selv differentierende vs. konkurrenter — mangler "fra X kr. → nu 249 kr." anchoring</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-10 -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-10.jpg" alt="Lav månedlig pris - ældre mand">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-mofu">MOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">"Lav månedlig pris" — Senior-segment variant</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">Ældre mand på motionscykel med bredt smil — ualmindelig i fitnessbranchen, stopper scrollet via novelty</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">LAV MÅNEDLIG PRIS · "FIND CENTER"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Inklusion, "det er også for mig", tryghed</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Seniormålgruppen er stærkt underadresseret i fitnessbranchen — potentielt høj ROI. Budskabet "Lav pris" er mere inkluderende end et specifikt tal. Inklusion signalerer åbenhed.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">"Lav månedlig pris" er vagt — ingen konkret pris givet. Mangler en afgørende grund til at klikke NU.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- image-04 (food) -->
+    <div class="ad-card">
+      <img src="puregym-dk-image-04.jpg" alt="Food lifestyle content">
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-image">Billede</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">4:5</span>
+        </div>
+        <div class="ad-card-title">Wellness/Kost-indhold — Mad &amp; Livsstil</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">Æstetisk top-down-foto af kyllingesalat — foodie-æstetik i fitnessmiljø er uventet, stopper scrollet</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Copy</div>
+          <div class="ad-text">Ingen synlig tekst-overlay — sandsynligvis ad-copy i caption/headline</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Helhedssundhed, "jeg er en sundhedsbevidst person"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Peger mod en bredere wellness-positionering. Skiller sig ud fra alt andet i sættet — høj visual novelty.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Kobling til PureGym er uklar uden caption-kontekst. Risiko for ikke at blive relateret til fitness-annonce. Ingen branding synlig.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════ FUNNEL 3: TOFU - UGC/POV VIDEOER ═══════════ -->
+<div class="funnel-section">
+  <div class="funnel-header">
+    <div class="funnel-number">3</div>
+    <div>
+      <div class="funnel-title">TOFU — UGC-style POV-videoer</div>
+      <div class="funnel-url">CTA → "Læs mere på puregym.dk" (blød CTA)</div>
+    </div>
+  </div>
+  <div class="funnel-desc">
+    Brand-awareness spor med Reels/TikTok-native videoformat. Ingen hård salgstale — formålet er at bygge kulturel tilhørshed, genkendelighed og sympati. "POV:"-formatet efterligner organisk content og sænker modstanden mod at se en reklame. Alle videoer er 9:16 eller 4:5 og vises som thumbnail her.
+  </div>
+
+  <div class="ads-grid">
+
+    <!-- video-01: Challenge Byt træning -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-01.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">Challenge: Byt Træning — Pilates-crampe humour</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"Challenge: Byt træning" + mand der kramper på Pilates Reformer = øjeblikkelig komik og curiosity-gap</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">Styrketræner prøver Pilates og kæmper ("Jeg kramper.") — udfordrer forestillingen om hvad "rigtig" træning er</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Humor, selvironi, genkendelse ("det ville også ske for mig")</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Ekstrem scroll-stopper. Showcaser bred træningsvariation (Pilates = mindre kendt tilbud i PureGym). Fremmer deling og kommentarer.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Ingen direkte CTA i videoen — awareness-only. Lang vej til konvertering.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video-02: POV mandag-ven -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-02.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">4:5</span>
+        </div>
+        <div class="ad-card-title">POV: Vennen der starter "på mandag" — Staff-authenticity</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"POV: Når du træner med den ven, der altid starter 'på mandag'" — universelt genkendeligt scenario</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">PureGym Manager (branded hoodie) viser gym-setup — autentisk "behind the scenes" fra ansatte</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Genkendelse, selvironi, insider-humor om treningskultur</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Manager-autenticitet er sjælden i branchen. "Starter på mandag"-tropen er universelt forståelig. Bruges til at normalisere tilmelding.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Meget kort video (kun 157KB) — sandsynligvis under 5 sek., giver lidt tid til at opbygge budskabet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video-05: POV har trænet -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-05.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">4:5</span>
+        </div>
+        <div class="ad-card-title">POV: Tegn på at jeg har trænet</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"POV: Jeg siger ikke jeg har trænet, men der vil være tegn" — selvironisk og aspirational på samme tid</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">Kvinde foran PureGym-indgang — det fysiske bevis på at hun har trænet (rødme, sweat, energi)</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Stolthed, humor, post-workout glow</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Viser PureGym-facade direkte = location awareness. Relatabel tone der ikke føles som reklame.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Ingen CTA. Sætter ikke PureGym overfor konkurrenter — hvad er det der gør det bedre?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video-06: POV før vs. efter -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-06.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">POV: Mig før træning vs. efter træning</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"POV: Mig før træning vs. efter træning" — klassisk before/after-format, høj curiosity-pull</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">Kvinde bag på indgangen ved turnstiles → transformation i energi/mood</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Transformation, energi, den gode følelse post-workout</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Before/after er en af de mest effektive narrative strukturer. Viser turnstile-oplevelse = ekte PureGym-miljø.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Psykisk transformation er svær at vise visuelt uden en stærk payoff-slutscene.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video-07: Pinligt -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-07.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">"Der skete noget sygt pinligt" — Gym embarrasment hook</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"Der skete lige noget sygt pinligt" — stærk curiosity-gap, umulig ikke at se hvad der skete</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">Kvinde med kettlebells i PureGym — pinlig gym-situation (falder, snubler, misforståelse?)</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Curiosity, empati, selvironi — "det er okay at fejle i fitnesscenteret"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Curiosity-gap hooking er dokumenteret effektiv til video completion rate. Normaliserer gym-angst ("alle har pinlige øjeblikke").</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Afhænger 100% af at payoff i slutscenen lever op til lovet — rykker ellers tilskuere</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video-08: mood før og efter -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-08.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">4:5</span>
+        </div>
+        <div class="ad-card-title">POV: Mit mood før og efter træning — Aspiration</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"POV: Mit mood før og efter træning" — kvinde forlader PureGym strålende glad</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">Sportsklædt kvinde på trappe foran PureGym-skiltet → endorphin-højde</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Joy, lethed, den fysiske og mentale transformation</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Blød CTA "Læs mere på puregym.dk" er lavfriktion. Optimistisk energi passer til sommerperiode. Viser PureGym-facaden eksplicit = location-recall.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Ikke differentierende fra hvad enhver anden kæde kunne sige. Mangler et unikt PureGym-argument.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video-04: Food/wellness -->
+    <div class="ad-card">
+      <video controls preload="metadata">
+        <source src="puregym-dk-video-04.mp4" type="video/mp4">
+      </video>
+      <div class="ad-card-body">
+        <div class="ad-badges">
+          <span class="badge badge-video">Video</span>
+          <span class="badge badge-tofu">TOFU</span>
+          <span class="badge badge-ratio">9:16</span>
+        </div>
+        <div class="ad-card-title">Wellness/Kost — "Understøtter min sundhed og træning"</div>
+        <div class="ad-detail">
+          <div class="ad-label">🪝 Hook</div>
+          <div class="ad-text">"som understøtter min egen sundhed og træning" — mad i tæt nærbillede, wellness-positionering</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">📝 Script-tema</div>
+          <div class="ad-text">Sandwichmåltid med sund komposition — del af en bredere "sund livsstil" fortælling</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label">💭 Emotion</div>
+          <div class="ad-text">Holistic health identity, "jeg lever sundt på alle fronter"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-strength">✅ Styrker</div>
+          <div class="ad-text">Testning af bredere wellness-positionering er strategisk klog post-rebrand. Skiller sig totalt ud fra konkurrenternes annoncer.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-label ad-weakness">⚠️ Svagheder</div>
+          <div class="ad-text">Svagt signal til fitness-specifik konvertering. Målgruppen er bred men handlingstrigger er uklar.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <p>Genereret 30. maj 2026 · Meta Ads Library · PureGym DK (side-ID: 45454344776)</p>
+  <p style="margin-top:4px;">57 billeder · 49 videoer i library · Analyserede: 10 billeder + 8 videoer</p>
+  <p style="margin-top:4px;"><em>Fitness World Danmark rebranded til PureGym DK maj 2023 efter opkøb af britiske PureGym i 2020</em></p>
+</footer>
+
+</div>
+</body>
+</html>
