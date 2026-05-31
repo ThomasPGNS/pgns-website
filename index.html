@@ -3,22 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Performance Gym Nordsjælland</title>
+  <title>PGNS – Oversigt</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0e1f26; color: #f1f4f6; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    .container { text-align: center; padding: 2rem; max-width: 600px; }
-    h1 { font-size: 2.2rem; margin-bottom: 1rem; color: #e8cd72; }
-    p { font-size: 1.1rem; color: #aaa; margin-bottom: 0.5rem; }
-    .badge { display: inline-block; margin-top: 1.5rem; background: #e8cd72; color: #0e1f26; padding: 0.4rem 1rem; border-radius: 4px; font-weight: bold; font-size: 0.9rem; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0e1f26; color: #f1f4f6; min-height: 100vh; padding: 3rem 2rem; }
+    h1 { font-size: 2rem; color: #e8cd72; margin-bottom: 0.4rem; }
+    .sub { color: #888; margin-bottom: 3rem; font-size: 0.95rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; max-width: 1000px; }
+    a.card { display: block; background: #162830; border: 1px solid #243840; border-radius: 8px; padding: 1.4rem 1.6rem; text-decoration: none; color: inherit; transition: border-color 0.2s, background 0.2s; }
+    a.card:hover { border-color: #e8cd72; background: #1c3340; }
+    .card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #e8cd72; margin-bottom: 0.5rem; }
+    .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .card-meta { font-size: 0.82rem; color: #888; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Performance Gym Nordsjælland</h1>
-    <p>Hillerød & Fredensborg</p>
-    <p>Siden er under opbygning.</p>
-    <span class="badge">✅ Auto-deploy virker — opdateret via Claude</span>
+  <h1>Performance Gym Nordsjælland</h1>
+  <p class="sub">Interne rapporter &amp; analyser</p>
+  <div class="grid">
+    <a class="card" href="/puregym-dk-analysis.html">
+      <div class="card-label">Konkurrentanalyse</div>
+      <div class="card-title">PureGym Danmark</div>
+      <div class="card-meta">Meta Ads · 8 videoer · 10 billeder · 30. maj 2026</div>
+    </a>
   </div>
 </body>
 </html>
