@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RT Udenlandstur 2026 — Hvor skal vi hen?</title>
+<style>
+  :root{
+    --bg:#faf8f5; --panel:#fff; --ink:#1c1a17; --muted:#6b655d;
+    --line:#e5e0d8; --accent:#b4542a; --accent-soft:#fdf1eb;
+    --ok:#2f7d5a; --ok-soft:#eaf5ef; --warn:#b8860b; --bad:#a33a2c; --bad-soft:#fbeeec;
+    --shadow:0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+           --bg:#14130e; --panel:#1f1e18; --ink:#f0ece4; --muted:#9e978c;
+           --line:#33312a; --accent:#e08050; --accent-soft:#2a211b;
+           --ok:#6bbf94; --ok-soft:#1b271f; --warn:#d9ad4a; --bad:#e0705e; --bad-soft:#2a1c19;
+           --shadow:0 1px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.2); }
+  }
+  :root[data-theme="dark"]{
+           --bg:#14130e; --panel:#1f1e18; --ink:#f0ece4; --muted:#9e978c;
+           --line:#33312a; --accent:#e08050; --accent-soft:#2a211b;
+           --ok:#6bbf94; --ok-soft:#1b271f; --warn:#d9ad4a; --bad:#e0705e; --bad-soft:#2a1c19;
+           --shadow:0 1px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.2); }
+  html{color-scheme:light dark}
+  :root[data-theme="light"]{color-scheme:light}
+  :root[data-theme="dark"]{color-scheme:dark}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1240px;margin:0 auto;padding:32px 18px 80px}
+
+  /* header */
+  header{margin-bottom:22px;position:relative}
+  .theme{position:absolute;top:0;right:0;display:flex;gap:4px;
+    background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:3px}
+  .theme button{background:none;border:none;border-radius:99px;cursor:pointer;
+    font:600 12px/1 inherit;color:var(--muted);padding:6px 11px;transition:all .12s}
+  .theme button:hover{color:var(--ink)}
+  .theme button.on{background:var(--accent);color:#fff}
+  .kicker{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:clamp(28px,5vw,40px);line-height:1.08;margin:8px 0 8px;letter-spacing:-.03em}
+  .sub{color:var(--muted);font-size:15px}
+
+  /* key numbers */
+  .keys{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:22px 0 26px}
+  .key{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .key .lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .key .val{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-top:3px}
+  .key .val small{font-size:13px;font-weight:500;color:var(--muted)}
+
+  /* controls */
+  .controls{position:sticky;top:0;z-index:20;background:var(--bg);
+    padding:12px 0 12px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .filters{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+  .fgroup{display:flex;gap:6px;flex-wrap:wrap}
+  .fsep{width:1px;height:22px;background:var(--line);margin:0 6px}
+  button.f{background:var(--panel);border:1px solid var(--line);color:var(--ink);
+    border-radius:99px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:all .12s}
+  button.f:hover{border-color:var(--accent)}
+  button.f.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .count{font-size:12.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+
+  /* main table */
+  .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    border:1px solid var(--line);border-radius:14px;background:var(--panel);
+    box-shadow:var(--shadow);margin-top:14px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+     color:var(--muted);padding:12px 11px;border-bottom:1px solid var(--line);
+     white-space:nowrap;font-weight:700;background:var(--panel);
+     position:sticky;top:0;z-index:5}
+  th.s{cursor:pointer;user-select:none}
+  th.s:hover{color:var(--accent)}
+  th.s::after{content:"↕";opacity:.3;margin-left:4px;font-size:10px}
+  th.s.asc::after{content:"↑";opacity:1;color:var(--accent)}
+  th.s.desc::after{content:"↓";opacity:1;color:var(--accent)}
+  td{padding:11px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--accent-soft)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .name{font-weight:600}
+  .badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;padding:3px 8px;border-radius:99px;
+    background:var(--accent-soft);color:var(--accent);margin-right:8px}
+  .type{font-size:12px;color:var(--muted)}
+  .pill{display:inline-block;padding:3px 9px;border-radius:99px;font-weight:700;font-size:12.5px}
+  .pill.ok{background:var(--ok-soft);color:var(--ok)}
+  .pill.no{background:var(--bad-soft);color:var(--bad)}
+  .tot{font-weight:700}
+  .bad-ratio{color:var(--bad);font-weight:700}
+  .good-ratio{color:var(--ok);font-weight:700}
+  .rev{font-size:11.5px;color:var(--muted)}
+  .hidden{display:none}
+
+  /* detail sections */
+  h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+     margin:44px 0 14px;font-weight:700}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    margin-bottom:10px;overflow:hidden}
+  summary{padding:15px 18px;cursor:pointer;font-weight:600;font-size:16px;
+    list-style:none;display:flex;align-items:center;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"›";font-size:20px;color:var(--accent);
+    transition:transform .15s;display:inline-block;font-weight:700}
+  details[open] summary::before{transform:rotate(90deg)}
+  summary .meta{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:500}
+  .dbody{padding:0 18px 18px;font-size:14px}
+  .dbody h4{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+    margin:18px 0 8px;font-weight:700}
+  .dbody p{margin:0 0 10px;line-height:1.6}
+  .dbody p:last-child{margin:0}
+  .dbody table{font-size:13px;border:1px solid var(--line);border-radius:10px}
+  .dbody th{position:static;font-size:9.5px}
+  .mini{overflow-x:auto;border-radius:10px}
+  a{color:var(--accent)}
+  .note{font-size:13px;color:var(--muted);line-height:1.55}
+  .note b{color:var(--ink)}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--muted)}
+
+  /* ---- mobile card view ---- */
+  .cards{display:none;gap:12px;margin-top:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:16px;box-shadow:var(--shadow)}
+  .card.over{border-color:var(--bad);border-left-width:4px}
+  .card.under{border-left:4px solid var(--ok)}
+  .chead{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+  .cname{font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.25;flex:1 1 100%}
+  .cmeta{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
+  .cbig{display:flex;align-items:baseline;justify-content:space-between;
+    gap:10px;margin:14px 0 2px;padding-top:12px;border-top:1px solid var(--line)}
+  .cbig .n{font-size:26px;font-weight:700;letter-spacing:-.02em}
+  .cbig .l{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .crows{margin-top:12px;font-size:13.5px}
+  .crow{display:flex;justify-content:space-between;padding:5px 0;
+    border-bottom:1px dotted var(--line)}
+  .crow:last-child{border-bottom:none}
+  .crow span:first-child{color:var(--muted)}
+  .crow span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
+  .cfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+  .cfoot a{font-weight:700;font-size:14px;text-decoration:none;color:var(--accent);
+    border:1.5px solid var(--accent);border-radius:99px;padding:8px 18px;
+    background:var(--accent-soft)}
+  .crow{border-bottom-style:solid;border-bottom-color:var(--line)}
+  .sortsel{display:none;width:100%;margin-top:10px}
+  .sortsel select{width:100%;font-family:inherit;font-size:14px;font-weight:600;
+    padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink);-webkit-appearance:none;appearance:none}
+  .sortsel label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;display:block;margin-bottom:5px}
+
+  @media (max-width:900px){
+    .tblwrap{display:none}
+    .cards{display:grid}
+    .sortsel{display:block}
+  }
+  @media print{
+    :root{--bg:#fff;--panel:#fff;--ink:#000;--muted:#555;--line:#ccc;
+          --accent:#a04a24;--accent-soft:#faf2ee;--shadow:none}
+    .controls,.theme,.cards{display:none !important}
+    .tblwrap{display:block !important;border:1px solid #ccc}
+    details{break-inside:avoid}
+    details:not([open]) .dbody{display:block}
+    a{color:#000;text-decoration:none}
+    body{font-size:11px}
+  }
+
+  @media (max-width:640px){
+    .wrap{padding:22px 14px 60px}
+    header{padding-top:44px}
+    .theme{top:0;right:auto;left:0}
+    .keys{grid-template-columns:1fr 1fr;gap:9px}
+    .key{padding:11px 13px}
+    .key .val{font-size:19px}
+    .controls{padding:10px 0}
+    .fsep{display:none}
+    button.f{padding:6px 12px;font-size:12.5px}
+    .filters{gap:6px}
+    .count{width:100%;margin:4px 0 0;order:99}
+    summary{padding:13px 14px;font-size:15px}
+    summary .meta{flex:1 1 100%;margin:4px 0 0}
+    .dbody{padding:0 14px 14px}
+    h1{margin-bottom:6px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="theme" id="theme">
+    <button data-th="auto" class="on">Auto</button>
+    <button data-th="light">Lys</button>
+    <button data-th="dark">Mørk</button>
+  </div>
+  <div class="kicker">RT Udenlandstur · 22.–25. oktober 2026</div>
+  <h1>Hvor skal vi hen?</h1>
+  <div class="sub">10 mand · 3 nætter · budget 5.000 kr pr. mand til fly og overnatning<br>
+  <span style="font-size:13.5px">Nøgletallene nedenfor er <b>fly + overnatning + turistskat</b> pr. mand — samme mål som marginen. Taxa ligger uden for.</span></div>
+</header>
+
+<div class="keys" id="keys"></div>
+
+<div class="controls">
+  <div class="filters">
+    <div class="fgroup" id="dest">
+      <button class="f on" data-d="all">Alle</button>
+      <button class="f" data-d="Mallorca">Mallorca</button>
+      <button class="f" data-d="Milano">Milano</button>
+      <button class="f" data-d="Rom">Rom</button>
+      <button class="f" data-d="Barcelona">Barcelona</button>
+    </div>
+    <div class="fsep"></div>
+    <div class="fgroup" id="typ">
+      <button class="f on" data-t="all">Alle typer</button>
+      <button class="f" data-t="Airbnb">Airbnb</button>
+      <button class="f" data-t="Hotel">Hotel</button>
+    </div>
+    <div class="fsep"></div>
+    <div class="fgroup" id="bud">
+      <button class="f" data-b="1">Kun inden for budget</button>
+    </div>
+    <div class="count" id="count"></div>
+  </div>
+  <div class="sortsel">
+    <label for="ss">Sortér efter</label>
+    <select id="ss">
+      <option value="sum">Fly + ophold + skat — lavest først</option>
+      <option value="total">Alt i alt inkl. taxa — lavest først</option>
+      <option value="ophold">Overnatning — lavest først</option>
+      <option value="fly">Fly — lavest først</option>
+      <option value="margin|d">Margin — størst først</option>
+      <option value="rating|d">Rating — bedst først</option>
+      <option value="ratio">Mand pr. bad — færrest først</option>
+      <option value="name|a">Navn — A til Å</option>
+    </select>
+  </div>
+</div>
+
+<div class="tblwrap">
+<table id="main">
+  <thead>
+    <tr>
+      <th class="s" data-k="name">Mulighed</th>
+      <th>Område</th>
+      <th>Plads</th>
+      <th class="s num" data-k="ratio">Mand<br>pr. bad</th>
+      <th class="s num" data-k="rating">Rating</th>
+      <th class="s num" data-k="fly">Fly</th>
+      <th class="s num" data-k="ophold">Ophold</th>
+      <th class="s num" data-k="skat">Skat</th>
+      <th class="s num asc" data-k="sum">Fly+ophold<br>+skat</th>
+      <th class="s num" data-k="margin">Margin</th>
+      <th class="s num" data-k="taxa">Taxa</th>
+      <th class="s num" data-k="total">Alt i alt</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody id="body"></tbody>
+</table>
+</div>
+
+<div class="cards" id="cards"></div>
+
+<h2>Detaljer pr. destination</h2>
+
+<details>
+<summary>Mallorca <span class="meta">Fly 2.257 kr · taxa lufthavn 67–135 kr · skat 49–74 kr</span></summary>
+<div class="dbody">
+  <h4>Fly</h4>
+  <p>Norwegian, direkte begge veje. Ud torsdag 11:05 → 14:05, hjem søndag 08:05 → 11:05. Rejsetid 6 t t/r, 1 håndbagage. <b>2.257 kr pr. mand · 22.570 kr i alt.</b></p>
+  <h4>Taxa</h4>
+  <div class="mini"><table>
+    <tr><th>Base</th><th class="num">Til PMI</th><th class="num">Transfer t/r</th><th class="num">Til Palma centrum</th><th class="num">3 aftener</th></tr>
+    <tr><td>THB El Cid, Can Pastilla</td><td class="num">2,5 km</td><td class="num">67 kr</td><td class="num">7,5 km</td><td class="num">248 kr</td></tr>
+    <tr><td>Hotel Negresco, Playa de Palma</td><td class="num">4 km</td><td class="num">67 kr</td><td class="num">9 km</td><td class="num">282 kr</td></tr>
+    <tr><td>Los Abilios / Son Prunes</td><td class="num">6-8 km</td><td class="num">135 kr</td><td class="num">6-8 km</td><td class="num">295 kr</td></tr>
+    <tr><td>Casa Villa Maria, Sant Jordi</td><td class="num">4 km</td><td class="num">110 kr</td><td class="num">9 km</td><td class="num">336 kr</td></tr>
+  </table></div>
+  <h4>Bemærk</h4>
+  <p class="note"><b>Ecotasa</b> er højsæsonsats til og med 31. oktober: €3,30 pr. person pr. nat for 4-stjernede hoteller, €2,20 for lejligheder og fincaer med ETV-licens. Laveste turistskat af alle fire destinationer.</p>
+  <p class="note"><b>Ét samlet Airbnb i Palma centrum findes ikke lovligt.</b> Byen har forbudt turistudlejning af lejligheder og lagde i februar 2026 låg på nye licenser. De tre villaer ligger derfor alle i periferien — Sant Jordi og Nord de Palma, 6-9 km ude. Vil I bo centralt, skal det være hotel.</p>
+  <p class="note"><b>Bus A1</b> kører fra lufthavnen til Palma centrum for ca. €5 pr. mand, og bus 23/25 fra Playa de Palma til centrum for ca. €2. Alle beregninger bruger taxa.</p>
+</div>
+</details>
+
+<details>
+<summary>Milano <span class="meta">Fly 2.040 kr · taxa lufthavn 492 kr · skat 90–224 kr</span></summary>
+<div class="dbody">
+  <h4>Fly</h4>
+  <p>SAS, direkte begge veje. Ud torsdag 06:20 → 08:30, hjem søndag 11:20 → 13:30. Rejsetid 4 t 20 t/r — kortest i feltet. 1 håndbagage. <b>2.040 kr pr. mand · 20.400 kr i alt.</b> Afgang 06:20 betyder mødetid i Kastrup ca. 05:00.</p>
+  <h4>Taxa</h4>
+  <div class="mini"><table>
+    <tr><th>Strækning</th><th class="num">Afstand</th><th class="num">Pris pr. bil</th><th class="num">Pr. mand</th></tr>
+    <tr><td>Malpensa → centrum, t/r</td><td class="num">50 km</td><td class="num">€110 fast</td><td class="num tot">492 kr</td></tr>
+    <tr><td>21 House of Stories → Navigli</td><td class="num">0 km</td><td class="num">—</td><td class="num">0 kr</td></tr>
+    <tr><td>Solari / Ostello Bello → Navigli</td><td class="num">1,2-1,5 km</td><td class="num">€10</td><td class="num">67 kr</td></tr>
+    <tr><td>Porta Romana → Navigli</td><td class="num">1,9 km</td><td class="num">€11</td><td class="num">74 kr</td></tr>
+    <tr><td>Hotel Piacenza → Navigli</td><td class="num">2,5 km</td><td class="num">€13</td><td class="num">87 kr</td></tr>
+  </table></div>
+  <h4>Gåafstande</h4>
+  <div class="mini"><table>
+    <tr><th>Bolig</th><th class="num">Duomo</th><th class="num">Navigli</th><th class="num">Brera</th><th>Nærmeste barmiljø</th></tr>
+    <tr><td>Ostello Bello</td><td class="num">8 min</td><td class="num">15 min</td><td class="num">15 min</td><td>Colonne di San Lorenzo, 3 min</td></tr>
+    <tr><td>Porta Romana</td><td class="num">13 min</td><td class="num">23 min</td><td class="num">25 min</td><td>Colonne di San Lorenzo, 9 min</td></tr>
+    <tr><td>21 House of Stories</td><td class="num">20 min</td><td class="num">0 min</td><td class="num">30 min</td><td>Navigli, på adressen</td></tr>
+    <tr><td>Solari / Tortona</td><td class="num">25-30 min</td><td class="num">12-15 min</td><td class="num">30 min</td><td>Navigli, 12-15 min</td></tr>
+    <tr><td>Hotel Piacenza</td><td class="num">metro 5 min</td><td class="num">20 min</td><td class="num">35 min</td><td>Porta Romana, 5 min</td></tr>
+  </table></div>
+  <h4>Bemærk</h4>
+  <p class="note"><b>Malpensa er den dyreste transfer i feltet.</b> 50 km med fast takst €110 pr. bil hver vej — 492 kr pr. mand. Det æder Milanos billigere flybillet: 2.040 + 492 = 2.532 kr, kun 100 kr under Rom. Malpensa Express koster €13 pr. mand og ville spare 297 kr, men beregningerne bruger taxa.</p>
+  <p class="note"><b>Ostello Bello er et hostel, men I har jeres egne værelser.</b> Fem private dobbeltværelser med eget bad — ingen sovesal. Huset er socialt af natur: bar i stueetagen, fælles opholdsrum, aperitivo, yngre publikum. 9,4 på 288 anmeldelser og den bedste beliggenhed af alle fem.</p>
+  <p class="note"><b>Metroen lukker ca. 00:30.</b> Uanset base er sen hjemtur taxa — men det koster kun 67-87 kr pr. mand for hele turen.</p>
+</div>
+</details>
+
+<details>
+<summary>Rom <span class="meta">Fly 2.386 kr · taxa lufthavn 246 kr · skat 112–134 kr</span></summary>
+<div class="dbody">
+  <h4>Fly</h4>
+  <p>Norwegian, direkte begge veje. Ud torsdag 07:05 → 09:40, hjem søndag 11:15 → 13:45. Rejsetid 5 t 05 t/r, 1 håndbagage. <b>2.386 kr pr. mand · 23.860 kr i alt.</b></p>
+  <h4>Taxa</h4>
+  <div class="mini"><table>
+    <tr><th>Strækning</th><th class="num">Afstand</th><th class="num">Pris pr. bil</th><th class="num">Pr. mand</th></tr>
+    <tr><td>Fiumicino → centrum, t/r</td><td class="num">32 km</td><td class="num">€55 fast</td><td class="num tot">246 kr</td></tr>
+    <tr><td>Ciampino → centrum, t/r</td><td class="num">15 km</td><td class="num">€40 fast</td><td class="num">179 kr</td></tr>
+    <tr><td>Monti → Trastevere, 3 aftener</td><td class="num">2,8 km</td><td class="num">€13 nat</td><td class="num">87 kr</td></tr>
+  </table></div>
+  <h4>Gåafstande fra Monti, Via Cavour</h4>
+  <div class="mini"><table>
+    <tr><th class="num">Piazza degli Zingari</th><th class="num">Metro Cavour</th><th class="num">Colosseum</th><th class="num">Trevi</th><th class="num">Pantheon</th><th class="num">Campo de' Fiori</th><th class="num">Trastevere</th></tr>
+    <tr><td class="num">4 min</td><td class="num">3 min</td><td class="num">8 min</td><td class="num">13 min</td><td class="num">18 min</td><td class="num">24 min</td><td class="num">35 min</td></tr>
+  </table></div>
+  <h4>Bemærk</h4>
+  <p class="note"><b>Monti-lejlighedens sengeopstilling</b> er fem dobbeltsenge og én enkeltseng. Ti mand betyder at stort set alle deler dobbeltseng to og to. Aftal det i gruppen på forhånd. Til gengæld fire badeværelser og et rigtigt aftenkvarter — vinbarer og trattoriaer fire minutters gang væk.</p>
+  <p class="note"><b>Hotel Santa Prisca</b> ligger på Aventino/Testaccio-grænsen: Testaccio 8 min, Circo Massimo 10 min, Trastevere 20 min, Colosseum 25 min, Centro Storico 30-35 min. To stjerner, men 8,6 på 217 anmeldelser — bedste datagrundlag af de tre.</p>
+  <p class="note"><b>Numa i Verso</b> er ikke fem dobbeltværelser, men tre lejligheder til 4, 3 og 3 personer med tekøkken. Ligger i sydlige Trastevere med sporvogn 8 to minutter væk. Antal badeværelser er ikke oplyst og bør bekræftes.</p>
+  <p class="note"><b>Oktober er Roms bedste måned</b> — 22° om dagen, intet lukker. Tjek om Roma eller Lazio spiller hjemme 22.-25. oktober.</p>
+</div>
+</details>
+
+<details>
+<summary>Barcelona <span class="meta">Fly 3.334 kr · taxa lufthavn 179 kr · skat 172–234 kr</span></summary>
+<div class="dbody">
+  <h4>Fly</h4>
+  <p>Ud med Norwegian torsdag 09:00 → 11:55, hjem med SAS søndag 12:25 → 15:20. Rejsetid 5 t 50 t/r, 1 håndbagage. <b>3.334 kr pr. mand · 33.340 kr i alt</b> — dyreste i feltet, 1.294 kr over Milano. To selskaber betyder at eventuel indchecket bagage tilkøbes separat på hvert ben.</p>
+  <h4>Taxa</h4>
+  <div class="mini"><table>
+    <tr><th>Strækning</th><th class="num">Afstand</th><th class="num">Pris pr. bil</th><th class="num">Pr. mand</th></tr>
+    <tr><td>BCN → centrum, t/r</td><td class="num">15 km</td><td class="num">€40 inkl. tillæg</td><td class="num tot">179 kr</td></tr>
+    <tr><td>Sant Pere-lejlighederne, 3 aftener</td><td class="num">0 km</td><td class="num">bor i centrum</td><td class="num">0 kr</td></tr>
+    <tr><td>Ibis Styles → El Born, 3 aftener</td><td class="num">2 km</td><td class="num">€11 nat</td><td class="num">74 kr</td></tr>
+  </table></div>
+  <h4>Bemærk</h4>
+  <p class="note"><b>Turistskatten er højere for lejligheder end for hoteller.</b> €10,45 mod €7,70 pr. person pr. nat, efter at byen hævede satsen for turistlejligheder 1. april 2026. Det er 62 kr pr. mand i hotellets favør — omvendt af alle andre destinationer.</p>
+  <p class="note"><b>Kun én af fire holder budgettet, og den gør det med 15 kr.</b> Flybilletten på 3.334 kr plus 234 kr i skat efterlader 1.432 kr til overnatning. I praksis passer Barcelona ikke ind i rammen.</p>
+  <p class="note"><b>Alle tre lejligheder har gyldig HUTB-licens</b> — 005296, 010793 og 004749 — så aflysningsrisikoen er ude af billedet. De ligger i samme område mellem Palau de la Música og MACBA, altså Sant Pere og Gòtic-nord. Nedre Raval begynder få hundrede meter sydvestpå og har en anden karakter efter midnat.</p>
+</div>
+</details>
+
+<h2>Beregningsgrundlag</h2>
+<details>
+<summary>Sådan er tallene regnet <span class="meta">antagelser og satser</span></summary>
+<div class="dbody">
+  <p class="note"><b>Flypriser</b> er pr. person som vist i søgningen. Totalen er pr. mand × 10, da søgemaskinen maksimalt tillader ni rejsende ad gangen.</p>
+  <p class="note"><b>Taxa</b>: tre biler til ti mand, fordi en standardtaxa tager fire passagerer. Nattakst på hjemturen, typisk 20-30 % over dagtakst. Kurs 7,46 kr pr. euro. Der er regnet med taxa på alle destinationer — ikke tog eller bus.</p>
+  <p class="note"><b>Turistskat</b>, pr. person for tre nætter, inkl. moms:<br>
+    Barcelona — HUTB-lejlighed €10,45/nat = 234 kr · hotel €7,70/nat = 172 kr<br>
+    Milano — 4★ €10/nat = 224 kr · 3★ og lejlighed €7/nat = 157 kr · hostel €4/nat = 90 kr<br>
+    Rom — lejlighed €6/nat = 134 kr · 2★ €5/nat = 112 kr<br>
+    Mallorca — 4★ €3,30/nat = 74 kr · lejlighed og finca med ETV €2,20/nat = 49 kr</p>
+  <p class="note"><b>Margin til 5.000</b> måles på fly + overnatning + turistskat. Taxa ligger uden for rammen og vises separat.</p>
+  <p class="note"><b>Ratings</b> måler ikke det samme på tværs af platforme. Airbnb bruger skala 1-5 med median omkring 4,8; Hotels.com bruger 1-10. Sammenlign inden for hver platform, ikke på tværs. Antal anmeldelser i parentes — under 30 er et tyndt grundlag.</p>
+</div>
+</details>
+
+<footer>
+  Opdateret 26. juli 2026 · alle priser som oplyst på søgetidspunktet og bør bekræftes ved booking
+</footer>
+
+</div>
+
+<script>
+const DATA = [
+ {d:"Mallorca",name:"Casa Villa Maria",type:"Airbnb",area:"Sant Jordi",plads:"5 sov / 3,5 bad",baths:3.5,rating:4.9,rmax:5,revs:68,fly:2257,ophold:1847,skat:49,transfer:110,bytaxa:336,url:"https://www.airbnb.dk/rooms/50317834"},
+ {d:"Mallorca",name:"Los Abilios",type:"Airbnb",area:"Nord de Palma",plads:"6 sov / 4 bad, pool",baths:4,rating:5.0,rmax:5,revs:2,fly:2257,ophold:2027,skat:49,transfer:135,bytaxa:295,url:"https://www.airbnb.dk/rooms/1623235420915171505"},
+ {d:"Mallorca",name:"Hotel Negresco",type:"Hotel",area:"Playa de Palma",plads:"5 dbl. / 5 bad",baths:5,rating:9.2,rmax:10,revs:805,fly:2257,ophold:2195,skat:74,transfer:67,bytaxa:282,url:"https://da.hotels.com/ho462497/hotel-negresco-adults-only-palma-de-mallorca-spanien/"},
+ {d:"Mallorca",name:"THB El Cid",type:"Hotel",area:"Can Pastilla",plads:"5 dbl. / 5 bad",baths:5,rating:8.8,rmax:10,revs:1005,fly:2257,ophold:2467,skat:74,transfer:67,bytaxa:248,url:"https://da.hotels.com/ho272317/hotel-thb-el-cid-adults-only-palma-de-mallorca-spanien/"},
+ {d:"Mallorca",name:"Son Prunes",type:"Airbnb",area:"Nord de Palma",plads:"5 sov / 3 bad",baths:3,rating:4.57,rmax:5,revs:7,fly:2257,ophold:2610,skat:49,transfer:135,bytaxa:295,url:"https://www.airbnb.dk/rooms/48040436"},
+
+ {d:"Milano",name:"Hotel Piacenza",type:"Hotel",area:"Porta Romana",plads:"5 dbl. / 5 bad",baths:5,rating:8.2,rmax:10,revs:339,fly:2040,ophold:1998,skat:157,transfer:492,bytaxa:87,url:"https://da.hotels.com/ho279526/hotel-piacenza-milano-italien/"},
+ {d:"Milano",name:"Porta Romana / Ticinese",type:"Airbnb",area:"Syd for Duomo",plads:"5 sov / 2 bad",baths:2,rating:4.66,rmax:5,revs:41,fly:2040,ophold:2278,skat:157,transfer:492,bytaxa:74,url:"https://www.airbnb.dk/rooms/1065108717923086546"},
+ {d:"Milano",name:"Solari / Tortona",type:"Airbnb",area:"Vest for Navigli",plads:"5 sov / 3 bad",baths:3,rating:5.0,rmax:5,revs:11,fly:2040,ophold:2378,skat:157,transfer:492,bytaxa:67,url:"https://www.airbnb.dk/rooms/1567984169945798038"},
+ {d:"Milano",name:"Ostello Bello",type:"Hotel",area:"Carrobbio, v. Duomo",plads:"5 dbl. / 5 bad · hostel",baths:5,rating:9.4,rmax:10,revs:288,fly:2040,ophold:2569,skat:90,transfer:492,bytaxa:67,url:"https://da.hotels.com/ho554199/ostello-bello-milano-italien/"},
+ {d:"Milano",name:"21 House of Stories",type:"Hotel",area:"Navigli, v. Darsena",plads:"5 dbl. / 5 bad",baths:5,rating:9.2,rmax:10,revs:562,fly:2040,ophold:3194,skat:224,transfer:492,bytaxa:0,url:"https://da.hotels.com/ho2856808352/21-house-of-stories-navigli-milano-italien/"},
+
+ {d:"Rom",name:"Monti · Via Cavour",type:"Airbnb",area:"Monti",plads:"5 sov / 4 bad",baths:4,rating:4.7,rmax:5,revs:20,fly:2386,ophold:2285,skat:134,transfer:246,bytaxa:87,url:"https://www.airbnb.dk/rooms/1344965893702133762"},
+ {d:"Rom",name:"Hotel Santa Prisca",type:"Hotel",area:"Aventino / Testaccio",plads:"5 dbl. / 5 bad",baths:5,rating:8.6,rmax:10,revs:217,fly:2386,ophold:2540,skat:112,transfer:246,bytaxa:87,url:"https://da.hotels.com/ho399876/hotel-santa-prisca-rom-italien/"},
+ {d:"Rom",name:"Numa i Verso",type:"Hotel",area:"Trastevere syd",plads:"3 lejl. (4+3+3)",baths:0,rating:9.2,rmax:10,revs:78,fly:2386,ophold:2794,skat:134,transfer:246,bytaxa:0,url:"https://da.hotels.com/ho2955528192/numa-i-verso-apartments-rom-italien/"},
+
+ {d:"Barcelona",name:"Sant Pere · 4 sov",type:"Airbnb",area:"V. Palau de la Música",plads:"4 sov / 2 bad · 10 senge",baths:2,rating:4.57,rmax:5,revs:329,fly:3334,ophold:1417,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/7793542"},
+ {d:"Barcelona",name:"Sant Pere · 5 sov",type:"Airbnb",area:"V. Palau de la Música",plads:"5 sov / 2 bad · 12 senge",baths:2,rating:4.73,rmax:5,revs:460,fly:3334,ophold:1944,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/8931118"},
+ {d:"Barcelona",name:"Ibis Styles Centre",type:"Hotel",area:"Dreta de l'Eixample",plads:"5 dbl. / 5 bad",baths:5,rating:9.2,rmax:10,revs:271,fly:3334,ophold:2228,skat:172,transfer:179,bytaxa:74,url:"https://da.hotels.com/ho405801920/ibis-styles-barcelona-centre-hotel-barcelona-spanien/"},
+ {d:"Barcelona",name:"Sant Pere · 6 sov",type:"Airbnb",area:"V. Palau de la Música",plads:"6 sov / 5 bad · 280 m²",baths:5,rating:4.58,rmax:5,revs:212,fly:3334,ophold:2273,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/42936177"}
+];
+
+DATA.forEach(r=>{
+  r.sum = r.fly + r.ophold + r.skat;
+  r.margin = 5000 - r.sum;
+  r.taxa = r.transfer + r.bytaxa;
+  r.total = r.sum + r.taxa;
+  r.ratio = r.baths ? 10/r.baths : null;
+});
+
+let fD="all", fT="all", fB=false, sortK="sum", sortAsc=true;
+const kr = n => n.toLocaleString("da-DK") + " kr";
+
+(function keys(){
+  const within = DATA.filter(r=>r.margin>=0);
+  const cheap  = DATA.reduce((a,b)=> b.sum<a.sum?b:a);
+  const exp    = DATA.reduce((a,b)=> b.sum>a.sum?b:a);
+  const fly    = DATA.reduce((a,b)=> b.fly<a.fly?b:a);
+  const k = (lbl,val,sub,col) =>
+    `<div class="key"><div class="lbl">${lbl}</div><div class="val"${col?` style="color:${col}"`:""}>${val}${sub?` <small>${sub}</small>`:""}</div></div>`;
+  document.getElementById("keys").innerHTML =
+    k("Muligheder", DATA.length, "i alt") +
+    k("Inden for budget", within.length, "af "+DATA.length, "var(--ok)") +
+    k("Billigste", cheap.sum.toLocaleString("da-DK"), "kr · "+cheap.d) +
+    k("Dyreste", exp.sum.toLocaleString("da-DK"), "kr · "+exp.d) +
+    k("Billigste fly", fly.fly.toLocaleString("da-DK"), "kr · "+fly.d);
+})();
+
+function render(){
+  let rows = DATA.filter(r =>
+    (fD==="all" || r.d===fD) &&
+    (fT==="all" || r.type===fT) &&
+    (!fB || r.margin>=0));
+
+  rows.sort((a,b)=>{
+    let x=a[sortK], y=b[sortK];
+    if(sortK==="name"){ x=a.name; y=b.name; return sortAsc ? x.localeCompare(y,"da") : y.localeCompare(x,"da"); }
+    if(sortK==="rating"){ x=a.rating/a.rmax; y=b.rating/b.rmax; }
+    if(x===null) return 1; if(y===null) return -1;
+    return sortAsc ? x-y : y-x;
+  });
+
+  document.getElementById("body").innerHTML = rows.map(r=>{
+    const rc = r.ratio===null ? '<span class="rev">ukendt</span>'
+      : `<span class="${r.ratio>=5?'bad-ratio':r.ratio<=2.5?'good-ratio':''}">${r.ratio.toFixed(1)}</span>`;
+    const rt = `${String(r.rating).replace(".",",")} <span class="rev">/${r.rmax} (${r.revs})</span>`;
+    const mg = r.margin>=0
+      ? `<span class="pill ok">+${r.margin.toLocaleString("da-DK")}</span>`
+      : `<span class="pill no">−${Math.abs(r.margin).toLocaleString("da-DK")}</span>`;
+    return `<tr>
+      <td class="name"><span class="badge">${r.d}</span>${r.name}<br><span class="type">${r.type}</span></td>
+      <td>${r.area}</td>
+      <td class="type">${r.plads}</td>
+      <td class="num">${rc}</td>
+      <td class="num">${rt}</td>
+      <td class="num">${kr(r.fly)}</td>
+      <td class="num">${kr(r.ophold)}</td>
+      <td class="num">${kr(r.skat)}</td>
+      <td class="num tot">${kr(r.sum)}</td>
+      <td class="num">${mg}</td>
+      <td class="num">${kr(r.taxa)}</td>
+      <td class="num tot">${kr(r.total)}</td>
+      <td><a href="${r.url}" target="_blank" rel="noopener">Åbn</a></td>
+    </tr>`;
+  }).join("");
+
+  document.getElementById("cards").innerHTML = rows.map(r=>{
+    const mg = r.margin>=0
+      ? `<span class="pill ok">+${r.margin.toLocaleString("da-DK")} kr</span>`
+      : `<span class="pill no">−${Math.abs(r.margin).toLocaleString("da-DK")} kr</span>`;
+    const rc = r.ratio===null ? "ukendt"
+      : `<span class="${r.ratio>=5?'bad-ratio':r.ratio<=2.5?'good-ratio':''}">${r.ratio.toFixed(1)} mand pr. bad</span>`;
+    return `<div class="card ${r.margin>=0?'under':'over'}">
+      <div class="chead">
+        <div class="cname"><span class="badge">${r.d}</span>${r.name}</div>
+      </div>
+      <div class="cmeta">${r.type} · ${r.area}<br>${r.plads} · ${rc}<br>
+        Rating ${String(r.rating).replace(".",",")}/${r.rmax} · ${r.revs} anmeldelser</div>
+      <div class="cbig">
+        <div><div class="l">Fly + ophold + skat</div><div class="n">${kr(r.sum)}</div></div>
+        ${mg}
+      </div>
+      <div class="crows">
+        <div class="crow"><span>Fly</span><span>${kr(r.fly)}</span></div>
+        <div class="crow"><span>Overnatning</span><span>${kr(r.ophold)}</span></div>
+        <div class="crow"><span>Turistskat</span><span>${kr(r.skat)}</span></div>
+        <div class="crow"><span>Taxa i alt</span><span>${kr(r.taxa)}</span></div>
+        <div class="crow"><span><b>Alt i alt</b></span><span><b>${kr(r.total)}</b></span></div>
+      </div>
+      <div class="cfoot"><span></span><a href="${r.url}" target="_blank" rel="noopener">Åbn annonce →</a></div>
+    </div>`;
+  }).join("");
+
+  const within = rows.filter(r=>r.margin>=0).length;
+  document.getElementById("count").textContent =
+    `${rows.length} vist · ${within} inden for budget`;
+
+  document.querySelectorAll("th.s").forEach(th=>{
+    th.classList.remove("asc","desc");
+    if(th.dataset.k===sortK) th.classList.add(sortAsc?"asc":"desc");
+  });
+}
+
+document.querySelectorAll("#dest .f").forEach(b=>b.onclick=()=>{
+  fD=b.dataset.d;
+  document.querySelectorAll("#dest .f").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); render();
+});
+document.querySelectorAll("#typ .f").forEach(b=>b.onclick=()=>{
+  fT=b.dataset.t;
+  document.querySelectorAll("#typ .f").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); render();
+});
+document.querySelector("#bud .f").onclick=function(){
+  fB=!fB; this.classList.toggle("on",fB); render();
+};
+document.querySelectorAll("th.s").forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k;
+  if(sortK===k) sortAsc=!sortAsc; else { sortK=k; sortAsc = (k==="name"); }
+  syncSel(); render();
+});
+
+const sel = document.getElementById("ss");
+sel.onchange = () => {
+  const [k,dir] = sel.value.split("|");
+  sortK = k; sortAsc = (dir !== "d");
+  render();
+};
+function syncSel(){
+  const v = sortK + (sortAsc ? "" : "|d");
+  const alt = sortK + (sortAsc ? "|a" : "");
+  for(const o of sel.options){ if(o.value===v || o.value===alt){ sel.value=o.value; return; } }
+}
+
+document.querySelectorAll("#theme button").forEach(b=>b.onclick=()=>{
+  const t=b.dataset.th;
+  if(t==="auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme",t);
+  document.querySelectorAll("#theme button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+});
+
+render();
+</script>
+</body>
+</html>
