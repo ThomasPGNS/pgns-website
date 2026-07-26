@@ -91,8 +91,6 @@
   .pill.ok{background:var(--ok-soft);color:var(--ok)}
   .pill.no{background:var(--bad-soft);color:var(--bad)}
   .tot{font-weight:700}
-  .bad-ratio{color:var(--bad);font-weight:700}
-  .good-ratio{color:var(--ok);font-weight:700}
   .rev{font-size:11.5px;color:var(--muted)}
   .hidden{display:none}
 
@@ -199,13 +197,22 @@
   </div>
   <div class="kicker">RT Udenlandstur · 22.–25. oktober 2026</div>
   <h1>Hvor skal vi hen?</h1>
-  <div class="sub">10 mand · 3 nætter · budget 5.000 kr pr. mand til fly og overnatning<br>
-  <span style="font-size:13.5px">Nøgletallene nedenfor er <b>fly + overnatning + turistskat</b> pr. mand — samme mål som marginen. Taxa ligger uden for.</span></div>
+  <div class="sub">10 mand · 3 nætter · <b>5.300 kr</b> til fly og ophold · <b>8.000 kr</b> for hele turen<br>
+  <span style="font-size:13.5px">Marginen måles på <b>fly + ophold + skat + morgenmad</b> mod de 5.300. Kolonnen <b>til forbrug</b> er hvad der er tilbage af de 8.000 når taxa også er betalt — altså til mad ude, drikkevarer og aktiviteter.</span></div>
 </header>
 
 <div class="keys" id="keys"></div>
 
 <div class="controls">
+  <div class="filters" style="margin-bottom:8px">
+    <div class="fgroup" id="grp">
+      <button class="f on" data-n="10">10 mand</button>
+      <button class="f" data-n="12">12 mand</button>
+      <button class="f" data-n="13">13 mand</button>
+    </div>
+    <div class="fsep"></div>
+    <span id="grpnote" style="font-size:12.5px;color:var(--muted)"></span>
+  </div>
   <div class="filters">
     <div class="fgroup" id="dest">
       <button class="f on" data-d="all">Alle</button>
@@ -229,13 +236,13 @@
   <div class="sortsel">
     <label for="ss">Sortér efter</label>
     <select id="ss">
-      <option value="sum">Fly + ophold + skat — lavest først</option>
+      <option value="sum">Fly + ophold + skat + mad — lavest først</option>
       <option value="total">Alt i alt inkl. taxa — lavest først</option>
       <option value="ophold">Overnatning — lavest først</option>
       <option value="fly">Fly — lavest først</option>
       <option value="margin|d">Margin — størst først</option>
       <option value="rating|d">Rating — bedst først</option>
-      <option value="ratio">Mand pr. bad — færrest først</option>
+      <option value="rest|d">Til forbrug — mest først</option>
       <option value="name|a">Navn — A til Å</option>
     </select>
   </div>
@@ -248,15 +255,17 @@
       <th class="s" data-k="name">Mulighed</th>
       <th>Område</th>
       <th>Plads</th>
-      <th class="s num" data-k="ratio">Mand<br>pr. bad</th>
+      <th class="s num" data-k="cap">Plads til</th>
       <th class="s num" data-k="rating">Rating</th>
       <th class="s num" data-k="fly">Fly</th>
       <th class="s num" data-k="ophold">Ophold</th>
       <th class="s num" data-k="skat">Skat</th>
-      <th class="s num asc" data-k="sum">Fly+ophold<br>+skat</th>
+      <th class="s num" data-k="mad">Mad</th>
+      <th class="s num asc" data-k="sum">Fly+ophold<br>+skat+mad</th>
       <th class="s num" data-k="margin">Margin</th>
       <th class="s num" data-k="taxa">Taxa</th>
       <th class="s num" data-k="total">Alt i alt</th>
+      <th class="s num" data-k="rest">Til forbrug<br>af 8.000</th>
       <th>Link</th>
     </tr>
   </thead>
@@ -265,6 +274,107 @@
 </div>
 
 <div class="cards" id="cards"></div>
+
+<h2>Hvad er det for en tur?</h2>
+
+<div class="flag" style="margin-bottom:14px">
+  <p><strong>Oktober er den vådeste måned i alle fire byer.</strong> Det er middelhavets efterårsregn, og den rammer overalt. Regn er derfor ikke et argument for eller imod en destination — det er et vilkår. Forskellen ligger i hvor godt byen fungerer når det sker.</p>
+</div>
+
+<div class="scroll" style="margin-bottom:18px">
+<table>
+  <tr>
+    <th>Destination</th><th class="num">Dag</th><th class="num">Nat</th>
+    <th class="num">Regndage</th><th class="num">Nedbør</th><th class="num">Sol pr. dag</th>
+    <th class="num">Havtemp.</th><th class="num">Øl</th><th class="num">Middag</th>
+  </tr>
+  <tr>
+    <td>Mallorca</td><td class="num">24°</td><td class="num">13°</td>
+    <td class="num">11</td><td class="num">70 mm</td><td class="num">7,0 t</td>
+    <td class="num">22°</td><td class="num">30 kr</td><td class="num">123 kr</td>
+  </tr>
+  <tr>
+    <td>Barcelona</td><td class="num">21,5°</td><td class="num">16°</td>
+    <td class="num">13</td><td class="num">73 mm</td><td class="num">7,9 t</td>
+    <td class="num">22°</td><td class="num">28 kr</td><td class="num">119 kr</td>
+  </tr>
+  <tr>
+    <td>Rom</td><td class="num">21,4°</td><td class="num">11°</td>
+    <td class="num">8</td><td class="num">113 mm</td><td class="num">—</td>
+    <td class="num">—</td><td class="num">37 kr</td><td class="num">112 kr</td>
+  </tr>
+  <tr>
+    <td>Milano</td><td class="num">17,8°</td><td class="num">9°</td>
+    <td class="num">8</td><td class="num">122 mm</td><td class="num">4,2 t</td>
+    <td class="num">—</td><td class="num">45 kr</td><td class="num">149 kr</td>
+  </tr>
+</table>
+</div>
+<p class="note" style="margin-bottom:22px">Øl er en fadøl på en almindelig bar, middag er en ret på en billig restaurant — begge som vejledende gennemsnit, ikke turistpriser. <b>Milano er både køligst, vådest, mørkest og dyrest</b>: seks grader under Mallorca og kun 4,2 soltimer om dagen mod Barcelonas 7,9. <b>Barcelona har flest regndage, men mindst nedbør</b> — mange korte byger frem for få lange.</p>
+
+<details>
+<summary>Mallorca <span class="meta">Byferie i en havneby der lever året rundt</span></summary>
+<div class="dbody">
+  <h4>Turtypen</h4>
+  <p>Palma er en rigtig spansk by med 400.000 indbyggere, ikke en badeby. I får tapasbarer, en katedral der er værd at se, og mulighed for både at bade og køre op i bjergene. Det varmeste vejr af de fire, og det eneste sted hvor havet stadig er 22 grader.</p>
+  <h4>Ting at give sig til</h4>
+  <p>Katedralen La Seu · tapastur gennem Santa Catalina · Sóller-toget gennem Tramuntana-bjergene · Bellver-slottet · bad fra Cala Major eller Illetas · aftenbarer i La Llotja</p>
+  <h4>Én ting at booke samlet</h4>
+  <p>Bådtur fra Palma havn med skipper — halv eller hel dag langs kysten. Alternativt vinsmagning i Binissalem, en halv time inde i landet.</p>
+  <h4>Hvad der er lukket</h4>
+  <p>Alt uden for Palma. Magaluf, Palmanova, Playa de Palma og øens badebyer lukker ned fra midten af oktober. Palma selv mærker det ikke.</p>
+  <h4>Hvis det regner</h4>
+  <p>Katedralen, Es Baluard-museet, markedshallerne og lange frokoster. Byen fungerer i regnvejr — men øen gør ikke, så en regnvejrsdag koster jer Tramuntana og stranden.</p>
+</div>
+</details>
+
+<details>
+<summary>Barcelona <span class="meta">Storby med strand og det største natteliv af de fire</span></summary>
+<div class="dbody">
+  <h4>Turtypen</h4>
+  <p>Den mest komplette af de fire: arkitektur i verdensklasse, strand i gåafstand fra centrum, tapaskultur og et natteliv der er større end de tre andres tilsammen. Mildeste nætter — 16 grader, fire grader over Rom — så udendørs aftener fungerer længst her.</p>
+  <h4>Ting at give sig til</h4>
+  <p>Sagrada Família · Park Güell · Gòtic og El Born til fods · Barceloneta-stranden · La Boqueria · Montjuïc med svævebane · tapasbarer i El Born</p>
+  <h4>Én ting at booke samlet</h4>
+  <p>Tapastur med guide gennem Gòtic eller El Born — fungerer godt for en gruppe og løser samtidig spørgsmålet om hvor I skal spise den aften. Alternativt en katamaran-tur langs kysten.</p>
+  <h4>Hvad der er lukket</h4>
+  <p>Intet af betydning. Strandbarerne langs Barceloneta lukker fra oktober, men byen kører uændret.</p>
+  <h4>Hvis det regner</h4>
+  <p>Tretten regndage er flest af de fire, men kun 73 mm — det er korte byger, ikke dage i træk. Museer, Boqueria og Gaudís indendørs værker dækker fint.</p>
+</div>
+</details>
+
+<details>
+<summary>Rom <span class="meta">Klassisk storbyferie med den bedste mad</span></summary>
+<div class="dbody">
+  <h4>Turtypen</h4>
+  <p>To tusind års historie i gåafstand og den bedste mad af de fire destinationer. Oktober er byens bedste måned — 21 grader, færre turister end om sommeren, og romerne kalder det selv <i>ottobrata romana</i>. Ingen strand, men det er heller ikke det man kommer efter.</p>
+  <h4>Ting at give sig til</h4>
+  <p>Colosseum og Forum Romanum · Vatikanet og Peterskirken · Pantheon · Trastevere om aftenen · Testaccio-markedet · Campo de' Fiori</p>
+  <h4>Én ting at booke samlet</h4>
+  <p>Madtur med guide i Testaccio eller Trastevere — fire til fem stop, vin undervejs, og I lærer byen at kende gennem maven. Det er den aktivitet der passer bedst til ti-tretten mænd i Rom.</p>
+  <h4>Hvad der er lukket</h4>
+  <p>Intet. Rom kører på fuld kraft året rundt.</p>
+  <h4>Hvis det regner</h4>
+  <p>Den nemmeste by at være i når vejret svigter. Vatikanmuseet alene tager en dag, og der er kirker, gallerier og lange frokoster nok til en hel tur. 113 mm er meget nedbør, men fordelt på kun otte dage.</p>
+</div>
+</details>
+
+<details>
+<summary>Milano <span class="meta">Aperitivo, design og mad — men køligst og dyrest</span></summary>
+<div class="dbody">
+  <h4>Turtypen</h4>
+  <p>Storbyferie med aperitivo-kultur: I betaler for en drink og får mad med. Mindre turistet end de andre tre, mere italiensk hverdag. Til gengæld er det efterår her, ikke sensommer — 18 grader om dagen og 9 om natten, med kun 4,2 soltimer.</p>
+  <h4>Ting at give sig til</h4>
+  <p>Duomo og tagterrassen · Navigli-kanalerne om aftenen · Brera · Galleria Vittorio Emanuele · Castello Sforzesco · Nattverdsmåltidet, hvis I booker måneder i forvejen</p>
+  <h4>Én ting at booke samlet</h4>
+  <p>Aperitivo-tur langs Navigli med guide, eller en dagstur til Franciacorta-vinmarkerne — en times togtur, og Italiens svar på champagne.</p>
+  <h4>Hvad der er lukket</h4>
+  <p>Intet. Milano er en arbejdsby og kører året rundt. Tjek dog om der ligger en messe i Fiera Milano de datoer — det får hotelpriserne til at eksplodere i hele byen.</p>
+  <h4>Hvis det regner</h4>
+  <p>Den bedste regnvejrsby af de fire. Gallerier, museer, Eataly, overdækkede passager og et metronet der dækker alt. Byen er bygget til efterår.</p>
+</div>
+</details>
 
 <h2>Detaljer pr. destination</h2>
 
@@ -352,13 +462,25 @@
   <div class="mini"><table>
     <tr><th>Strækning</th><th class="num">Afstand</th><th class="num">Pris pr. bil</th><th class="num">Pr. mand</th></tr>
     <tr><td>BCN → centrum, t/r</td><td class="num">15 km</td><td class="num">€40 inkl. tillæg</td><td class="num tot">179 kr</td></tr>
-    <tr><td>Sant Pere-lejlighederne, 3 aftener</td><td class="num">0 km</td><td class="num">bor i centrum</td><td class="num">0 kr</td></tr>
+    <tr><td>De tre Airbnb, 3 aftener</td><td class="num">0 km</td><td class="num">bor i centrum</td><td class="num">0 kr</td></tr>
     <tr><td>Ibis Styles → El Born, 3 aftener</td><td class="num">2 km</td><td class="num">€11 nat</td><td class="num">74 kr</td></tr>
   </table></div>
   <h4>Bemærk</h4>
   <p class="note"><b>Turistskatten er højere for lejligheder end for hoteller.</b> €10,45 mod €7,70 pr. person pr. nat, efter at byen hævede satsen for turistlejligheder 1. april 2026. Det er 62 kr pr. mand i hotellets favør — omvendt af alle andre destinationer.</p>
   <p class="note"><b>Kun én af fire holder budgettet, og den gør det med 15 kr.</b> Flybilletten på 3.334 kr plus 234 kr i skat efterlader 1.432 kr til overnatning. I praksis passer Barcelona ikke ind i rammen.</p>
-  <p class="note"><b>Alle tre lejligheder har gyldig HUTB-licens</b> — 005296, 010793 og 004749 — så aflysningsrisikoen er ude af billedet. De ligger i samme område mellem Palau de la Música og MACBA, altså Sant Pere og Gòtic-nord. Nedre Raval begynder få hundrede meter sydvestpå og har en anden karakter efter midnat.</p>
+  <p class="note"><b>Alle tre lejligheder har gyldig HUTB-licens</b> — 005296, 010793 og 004749 — så aflysningsrisikoen er ude af billedet.</p>
+  <p class="note"><b>Alle tre ligger i samme lille område mellem Plaça de Catalunya og Universitat</b> — ingen af dem i Sant Pere, som først antaget ud fra udzoomede kortudsnit. Der er under 300 meter mellem den nordligste og den sydligste.</p>
+  <div class="mini"><table>
+    <tr><th>Bolig</th><th class="num">Pl. de Catalunya</th><th class="num">La Rambla</th><th class="num">Gòtic</th><th class="num">El Born</th><th class="num">Metro</th></tr>
+    <tr><td>Carrer de Pelai</td><td class="num">3 min</td><td class="num">3 min</td><td class="num">5 min</td><td class="num">12 min</td><td class="num">Universitat, 2 min</td></tr>
+    <tr><td>Ronda Universitat</td><td class="num">3 min</td><td class="num">3 min</td><td class="num">6 min</td><td class="num">13 min</td><td class="num">Catalunya, 3 min</td></tr>
+    <tr><td>Gran Via</td><td class="num">4 min</td><td class="num">5 min</td><td class="num">9 min</td><td class="num">15 min</td><td class="num">Universitat, 4 min</td></tr>
+  </table></div>
+  <p class="note">Beliggenheden er så central som den kan blive i Barcelona — La Rambla starter ved Plaça de Catalunya, og alle metrolinjer mødes der. Men det er Eixample: pænt, gennemkommercielt, og aftenlivet ligger i Gòtic og El Born ti minutters gang sydpå. Aerobús og lufthavnstoget går fra Plaça de Catalunya, hvis I vil regne på noget billigere end taxa.</p>
+  <p class="note"><b>De to store lejligheder</b> ligger begge højere oppe i Eixample end de fire andre. <b>Sidste års lejlighed</b> ved Rambla de Catalunya: ti minutter til Plaça de Catalunya, tre til Passeig de Gràcia, et kvarter til La Rambla, tyve til El Born. <b>Luksusudgaven</b> ligger ved El Nacional lige på Passeig de Gràcia med metroen på hjørnet: fem minutter til Plaça de Catalunya, otte til La Rambla, ti til Gòtic.</p>
+  <p class="note"><b>Priserne på begge er hentet for 13 personer.</b> Ved 10 mand kan Airbnb regne dem lavere — søg igen hvis gruppen ender på ti. Og luksusudgavens "nedsat fra 56.000" er en rabat på 41 %; den slags overstregede priser er som regel ankerprissætning og ikke et beløb nogen har betalt. Kig kun på de 33.000.</p>
+  <p class="note"><b>Luksusudgaven har den bedste bolig i hele feltet</b> — ni soveværelser, atten senge og 5,5 badeværelser. Ved 13 mand er det 2,4 mand pr. bad, og alle får deres egen seng med fem i overskud. Men den koster 3.300 kr pr. mand ved 10 og 2.538 kr ved 13, og ligger dermed over budgettet i begge tilfælde.</p>
+  <p class="note">Carrer de Pelai ligger tættest på Raval. Øvre Raval omkring Carrer dels Tallers og Joaquín Costa har gode barer og er helt i orden — det er nedre Raval, længere sydvest, der har en anden karakter efter midnat.</p>
 </div>
 </details>
 
@@ -373,7 +495,13 @@
     Milano — 4★ €10/nat = 224 kr · 3★ og lejlighed €7/nat = 157 kr · hostel €4/nat = 90 kr<br>
     Rom — lejlighed €6/nat = 134 kr · 2★ €5/nat = 112 kr<br>
     Mallorca — 4★ €3,30/nat = 74 kr · lejlighed og finca med ETV €2,20/nat = 49 kr</p>
-  <p class="note"><b>Margin til 5.000</b> måles på fly + overnatning + turistskat. Taxa ligger uden for rammen og vises separat.</p>
+  <p class="note"><b>Morgenmad</b>: alle hoteller og hostellet har morgenmad inkluderet i prisen. På Airbnb er der lagt <b>300 kr pr. mand for hele turen</b> ind til indkøb — erfaringstal fra sidste års tur. Uden den post ville hotellerne blive sammenlignet på et grundlag hvor de betaler for noget de andre får gratis.</p>
+  <p class="note"><b>Budgettet er hævet fra 5.000 til 5.300 kr</b> netop fordi madposten er kommet ind. Nettoeffekten er at Airbnb-mulighedernes margin er uændret, mens hotellerne får 300 kr bedre margin — som de skal, siden de faktisk leverer morgenmaden.</p>
+  <p class="note"><b>Margin til 5.300</b> måles på fly + overnatning + turistskat + morgenmad. Taxa ligger uden for rammen og vises separat.</p>
+  <p class="note"><b>Plads til</b> er boligens maksimale antal gæster. Hoteller står som skalerbare, fordi man blot booker flere værelser. Grøn = plads til 13, gul = plads til 12, rød = kun 10-11. Boliger der er for små til den valgte gruppestørrelse skjules automatisk.</p>
+  <p class="note"><b>Gruppestørrelse.</b> Vælgeren øverst omregner alle beløb. To ting opfører sig forskelligt: <b>Airbnb</b> har en fast pris for hele boligen, så prisen pr. mand falder når I bliver flere. <b>Hoteller</b> sælges pr. dobbeltværelse, så prisen pr. mand er den samme uanset antal — I køber blot flere værelser. <b>Taxa</b> skifter fra tre til fire biler ved 13 mand, hvilket lægger lidt til pr. mand.</p>
+  <p class="note"><b>Vigtigt forbehold ved 12 og 13 mand:</b> flypriser og hotelpriser er ikke søgt for de gruppestørrelser. Flyprisen kan stige hvis der ikke er tolv eller tretten billige pladser på samme afgang, og hotelprisen forudsætter at seks eller syv værelser koster proportionalt med fem. Airbnb-priserne på de tre store Barcelona-lejligheder er derimod hentet direkte for 13 personer og er reelle.</p>
+  <p class="note"><b>Til forbrug</b> = 8.000 kr minus alt i alt. Det er hvad hver mand har tilbage til mad ude, drikkevarer og aktiviteter over tre dage. Grøn over 2.500 kr, gul mellem 2.000 og 2.500, rød derunder.</p>
   <p class="note"><b>Ratings</b> måler ikke det samme på tværs af platforme. Airbnb bruger skala 1-5 med median omkring 4,8; Hotels.com bruger 1-10. Sammenlign inden for hver platform, ikke på tværs. Antal anmeldelser i parentes — under 30 er et tyndt grundlag.</p>
 </div>
 </details>
@@ -386,56 +514,85 @@
 
 <script>
 const DATA = [
- {d:"Mallorca",name:"Casa Villa Maria",type:"Airbnb",area:"Sant Jordi",plads:"5 sov / 3,5 bad",baths:3.5,rating:4.9,rmax:5,revs:68,fly:2257,ophold:1847,skat:49,transfer:110,bytaxa:336,url:"https://www.airbnb.dk/rooms/50317834"},
- {d:"Mallorca",name:"Los Abilios",type:"Airbnb",area:"Nord de Palma",plads:"6 sov / 4 bad, pool",baths:4,rating:5.0,rmax:5,revs:2,fly:2257,ophold:2027,skat:49,transfer:135,bytaxa:295,url:"https://www.airbnb.dk/rooms/1623235420915171505"},
- {d:"Mallorca",name:"Hotel Negresco",type:"Hotel",area:"Playa de Palma",plads:"5 dbl. / 5 bad",baths:5,rating:9.2,rmax:10,revs:805,fly:2257,ophold:2195,skat:74,transfer:67,bytaxa:282,url:"https://da.hotels.com/ho462497/hotel-negresco-adults-only-palma-de-mallorca-spanien/"},
- {d:"Mallorca",name:"THB El Cid",type:"Hotel",area:"Can Pastilla",plads:"5 dbl. / 5 bad",baths:5,rating:8.8,rmax:10,revs:1005,fly:2257,ophold:2467,skat:74,transfer:67,bytaxa:248,url:"https://da.hotels.com/ho272317/hotel-thb-el-cid-adults-only-palma-de-mallorca-spanien/"},
- {d:"Mallorca",name:"Son Prunes",type:"Airbnb",area:"Nord de Palma",plads:"5 sov / 3 bad",baths:3,rating:4.57,rmax:5,revs:7,fly:2257,ophold:2610,skat:49,transfer:135,bytaxa:295,url:"https://www.airbnb.dk/rooms/48040436"},
+ {d:"Mallorca",name:"Casa Villa Maria",type:"Airbnb",area:"Sant Jordi",plads:"5 sov / 3,5 bad",baths:3.5,cap:12,rating:4.9,rmax:5,revs:68,fly:2257,ophold:1847,skat:49,transfer:110,bytaxa:336,url:"https://www.airbnb.dk/rooms/50317834"},
+ {d:"Mallorca",name:"Los Abilios",type:"Airbnb",area:"Nord de Palma",plads:"6 sov / 4 bad, pool",baths:4,cap:10,rating:5.0,rmax:5,revs:2,fly:2257,ophold:2027,skat:49,transfer:135,bytaxa:295,url:"https://www.airbnb.dk/rooms/1623235420915171505"},
+ {d:"Mallorca",name:"Hotel Negresco",type:"Hotel",area:"Playa de Palma",plads:"5 dbl. / 5 bad",baths:5,cap:99,rating:9.2,rmax:10,revs:805,fly:2257,ophold:2195,skat:74,transfer:67,bytaxa:282,url:"https://da.hotels.com/ho462497/hotel-negresco-adults-only-palma-de-mallorca-spanien/"},
+ {d:"Mallorca",name:"THB El Cid",type:"Hotel",area:"Can Pastilla",plads:"5 dbl. / 5 bad",baths:5,cap:99,rating:8.8,rmax:10,revs:1005,fly:2257,ophold:2467,skat:74,transfer:67,bytaxa:248,url:"https://da.hotels.com/ho272317/hotel-thb-el-cid-adults-only-palma-de-mallorca-spanien/"},
+ {d:"Mallorca",name:"Son Prunes",type:"Airbnb",area:"Nord de Palma",plads:"5 sov / 3 bad",baths:3,cap:10,rating:4.57,rmax:5,revs:7,fly:2257,ophold:2610,skat:49,transfer:135,bytaxa:295,url:"https://www.airbnb.dk/rooms/48040436"},
 
- {d:"Milano",name:"Hotel Piacenza",type:"Hotel",area:"Porta Romana",plads:"5 dbl. / 5 bad",baths:5,rating:8.2,rmax:10,revs:339,fly:2040,ophold:1998,skat:157,transfer:492,bytaxa:87,url:"https://da.hotels.com/ho279526/hotel-piacenza-milano-italien/"},
- {d:"Milano",name:"Porta Romana / Ticinese",type:"Airbnb",area:"Syd for Duomo",plads:"5 sov / 2 bad",baths:2,rating:4.66,rmax:5,revs:41,fly:2040,ophold:2278,skat:157,transfer:492,bytaxa:74,url:"https://www.airbnb.dk/rooms/1065108717923086546"},
- {d:"Milano",name:"Solari / Tortona",type:"Airbnb",area:"Vest for Navigli",plads:"5 sov / 3 bad",baths:3,rating:5.0,rmax:5,revs:11,fly:2040,ophold:2378,skat:157,transfer:492,bytaxa:67,url:"https://www.airbnb.dk/rooms/1567984169945798038"},
- {d:"Milano",name:"Ostello Bello",type:"Hotel",area:"Carrobbio, v. Duomo",plads:"5 dbl. / 5 bad · hostel",baths:5,rating:9.4,rmax:10,revs:288,fly:2040,ophold:2569,skat:90,transfer:492,bytaxa:67,url:"https://da.hotels.com/ho554199/ostello-bello-milano-italien/"},
- {d:"Milano",name:"21 House of Stories",type:"Hotel",area:"Navigli, v. Darsena",plads:"5 dbl. / 5 bad",baths:5,rating:9.2,rmax:10,revs:562,fly:2040,ophold:3194,skat:224,transfer:492,bytaxa:0,url:"https://da.hotels.com/ho2856808352/21-house-of-stories-navigli-milano-italien/"},
+ {d:"Milano",name:"Hotel Piacenza",type:"Hotel",area:"Porta Romana",plads:"5 dbl. / 5 bad",baths:5,cap:99,rating:8.2,rmax:10,revs:339,fly:2040,ophold:1998,skat:157,transfer:492,bytaxa:87,url:"https://da.hotels.com/ho279526/hotel-piacenza-milano-italien/"},
+ {d:"Milano",name:"Porta Romana / Ticinese",type:"Airbnb",area:"Syd for Duomo",plads:"5 sov / 2 bad",baths:2,cap:10,rating:4.66,rmax:5,revs:41,fly:2040,ophold:2278,skat:157,transfer:492,bytaxa:74,url:"https://www.airbnb.dk/rooms/1065108717923086546"},
+ {d:"Milano",name:"Solari / Tortona",type:"Airbnb",area:"Vest for Navigli",plads:"5 sov / 3 bad",baths:3,cap:10,rating:5.0,rmax:5,revs:11,fly:2040,ophold:2378,skat:157,transfer:492,bytaxa:67,url:"https://www.airbnb.dk/rooms/1567984169945798038"},
+ {d:"Milano",name:"Ostello Bello",type:"Hotel",area:"Carrobbio, v. Duomo",plads:"5 dbl. / 5 bad · hostel",baths:5,cap:99,rating:9.4,rmax:10,revs:288,fly:2040,ophold:2569,skat:90,transfer:492,bytaxa:67,url:"https://da.hotels.com/ho554199/ostello-bello-milano-italien/"},
+ {d:"Milano",name:"21 House of Stories",type:"Hotel",area:"Navigli, v. Darsena",plads:"5 dbl. / 5 bad",baths:5,cap:99,rating:9.2,rmax:10,revs:562,fly:2040,ophold:3194,skat:224,transfer:492,bytaxa:0,url:"https://da.hotels.com/ho2856808352/21-house-of-stories-navigli-milano-italien/"},
 
- {d:"Rom",name:"Monti · Via Cavour",type:"Airbnb",area:"Monti",plads:"5 sov / 4 bad",baths:4,rating:4.7,rmax:5,revs:20,fly:2386,ophold:2285,skat:134,transfer:246,bytaxa:87,url:"https://www.airbnb.dk/rooms/1344965893702133762"},
- {d:"Rom",name:"Hotel Santa Prisca",type:"Hotel",area:"Aventino / Testaccio",plads:"5 dbl. / 5 bad",baths:5,rating:8.6,rmax:10,revs:217,fly:2386,ophold:2540,skat:112,transfer:246,bytaxa:87,url:"https://da.hotels.com/ho399876/hotel-santa-prisca-rom-italien/"},
- {d:"Rom",name:"Numa i Verso",type:"Hotel",area:"Trastevere syd",plads:"3 lejl. (4+3+3)",baths:0,rating:9.2,rmax:10,revs:78,fly:2386,ophold:2794,skat:134,transfer:246,bytaxa:0,url:"https://da.hotels.com/ho2955528192/numa-i-verso-apartments-rom-italien/"},
+ {d:"Rom",name:"Monti · Via Cavour",type:"Airbnb",area:"Monti",plads:"5 sov / 4 bad",baths:4,cap:11,rating:4.7,rmax:5,revs:20,fly:2386,ophold:2285,skat:134,transfer:246,bytaxa:87,url:"https://www.airbnb.dk/rooms/1344965893702133762"},
+ {d:"Rom",name:"Hotel Santa Prisca",type:"Hotel",area:"Aventino / Testaccio",plads:"5 dbl. / 5 bad",baths:5,cap:99,rating:8.6,rmax:10,revs:217,fly:2386,ophold:2540,skat:112,transfer:246,bytaxa:87,url:"https://da.hotels.com/ho399876/hotel-santa-prisca-rom-italien/"},
+ {d:"Rom",name:"Numa i Verso",type:"Hotel",area:"Trastevere syd",plads:"3 lejl. (4+3+3)",baths:0,cap:99,rating:9.2,rmax:10,revs:78,fly:2386,ophold:2794,skat:134,transfer:246,bytaxa:0,url:"https://da.hotels.com/ho2955528192/numa-i-verso-apartments-rom-italien/"},
 
- {d:"Barcelona",name:"Sant Pere · 4 sov",type:"Airbnb",area:"V. Palau de la Música",plads:"4 sov / 2 bad · 10 senge",baths:2,rating:4.57,rmax:5,revs:329,fly:3334,ophold:1417,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/7793542"},
- {d:"Barcelona",name:"Sant Pere · 5 sov",type:"Airbnb",area:"V. Palau de la Música",plads:"5 sov / 2 bad · 12 senge",baths:2,rating:4.73,rmax:5,revs:460,fly:3334,ophold:1944,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/8931118"},
- {d:"Barcelona",name:"Ibis Styles Centre",type:"Hotel",area:"Dreta de l'Eixample",plads:"5 dbl. / 5 bad",baths:5,rating:9.2,rmax:10,revs:271,fly:3334,ophold:2228,skat:172,transfer:179,bytaxa:74,url:"https://da.hotels.com/ho405801920/ibis-styles-barcelona-centre-hotel-barcelona-spanien/"},
- {d:"Barcelona",name:"Sant Pere · 6 sov",type:"Airbnb",area:"V. Palau de la Música",plads:"6 sov / 5 bad · 280 m²",baths:5,rating:4.58,rmax:5,revs:212,fly:3334,ophold:2273,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/42936177"}
+ {d:"Barcelona",name:"Ronda Universitat",ref:"HUTB-005296",type:"Airbnb",area:"Eixample, v. Pl. de Catalunya",plads:"4 sov / 2 bad · 10 senge",baths:2,cap:12,rating:4.57,rmax:5,revs:329,fly:3334,ophold:1417,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/7793542"},
+ {d:"Barcelona",name:"Gran Via",ref:"HUTB-010793",type:"Airbnb",area:"Eixample, v. Teatre Coliseum",plads:"5 sov / 2 bad · 12 senge",baths:2,cap:12,rating:4.73,rmax:5,revs:460,fly:3334,ophold:1944,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/8931118"},
+ {d:"Barcelona",name:"Ibis Styles Centre",type:"Hotel",area:"Dreta de l'Eixample",plads:"5 dbl. / 5 bad",baths:5,cap:99,rating:9.2,rmax:10,revs:271,fly:3334,ophold:2228,skat:172,transfer:179,bytaxa:74,url:"https://da.hotels.com/ho405801920/ibis-styles-barcelona-centre-hotel-barcelona-spanien/"},
+ {d:"Barcelona",name:"Carrer de Pelai",ref:"HUTB-004749",type:"Airbnb",area:"Eixample, v. Universitat",plads:"6 sov / 5 bad · 280 m²",baths:5,cap:15,rating:4.58,rmax:5,revs:212,fly:3334,ophold:2273,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/42936177"},
+ {d:"Barcelona",name:"Sidste års lejlighed",ref:"pris hentet for 13 pers.",type:"Airbnb",area:"Eixample, v. Rambla Catalunya",plads:"15 sovepladser",baths:0,cap:15,rating:4.59,rmax:5,revs:289,fly:3334,ophold:2060,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/43824602"},
+ {d:"Barcelona",name:"Luksusudgaven",ref:"pris hentet for 13 pers.",type:"Airbnb",area:"Eixample, v. Passeig de Gràcia",plads:"9 sov / 5,5 bad · 18 senge",baths:5.5,cap:18,rating:4.75,rmax:5,revs:183,fly:3334,ophold:3300,skat:234,transfer:179,bytaxa:0,url:"https://www.airbnb.dk/rooms/45489429"}
 ];
 
+const BUDGET = 5300;      // fly + ophold + skat + morgenmad, pr. mand
+const LOFT   = 8000;      // samlet loft for hele turen, pr. mand
+const MAD    = 300;       // indkøb til morgenmad, kun hvor den ikke er inkluderet
+const BASIS  = 10;        // alle indhentede priser er for 10 mand
+
+let N = 10;               // valgt gruppestørrelse
+
+// gem grundtal én gang, så de kan omregnes til enhver gruppestørrelse
 DATA.forEach(r=>{
-  r.sum = r.fly + r.ophold + r.skat;
-  r.margin = 5000 - r.sum;
-  r.taxa = r.transfer + r.bytaxa;
-  r.total = r.sum + r.taxa;
-  r.ratio = r.baths ? 10/r.baths : null;
+  r.opholdTotal   = r.ophold  * BASIS;          // Airbnb: fast pris for hele boligen
+  r.transferPrBil = r.transfer * BASIS / 3;     // oprindeligt regnet med 3 biler
+  r.bytaxaPrBil   = r.bytaxa   * BASIS / 3;
 });
+
+function beregn(n){
+  const biler = Math.ceil(n/4);
+  DATA.forEach(r=>{
+    // Airbnb koster det samme uanset hvor mange I er — hotel koster pr. værelse
+    r.ophold   = (r.type === "Airbnb") ? Math.round(r.opholdTotal / n)
+                                       : Math.round(r.opholdTotal / BASIS);
+    r.mad      = (r.type === "Airbnb") ? MAD : 0;
+    r.sum      = r.fly + r.ophold + r.skat + r.mad;
+    r.margin   = BUDGET - r.sum;
+    r.transfer = Math.round(r.transferPrBil * biler / n);
+    r.bytaxa   = Math.round(r.bytaxaPrBil   * biler / n);
+    r.taxa     = r.transfer + r.bytaxa;
+    r.total    = r.sum + r.taxa;
+    r.rest     = LOFT - r.total;
+  });
+}
+beregn(N);
 
 let fD="all", fT="all", fB=false, sortK="sum", sortAsc=true;
 const kr = n => n.toLocaleString("da-DK") + " kr";
 
-(function keys(){
-  const within = DATA.filter(r=>r.margin>=0);
-  const cheap  = DATA.reduce((a,b)=> b.sum<a.sum?b:a);
-  const exp    = DATA.reduce((a,b)=> b.sum>a.sum?b:a);
-  const fly    = DATA.reduce((a,b)=> b.fly<a.fly?b:a);
+function keys(){
+  const pool   = DATA.filter(r=>r.cap>=N);
+  const within = pool.filter(r=>r.margin>=0);
+  const cheap  = pool.reduce((a,b)=> b.sum<a.sum?b:a, pool[0]);
+  const exp    = pool.reduce((a,b)=> b.sum>a.sum?b:a, pool[0]);
+  const rest   = pool.reduce((a,b)=> b.rest>a.rest?b:a, pool[0]);
   const k = (lbl,val,sub,col) =>
     `<div class="key"><div class="lbl">${lbl}</div><div class="val"${col?` style="color:${col}"`:""}>${val}${sub?` <small>${sub}</small>`:""}</div></div>`;
   document.getElementById("keys").innerHTML =
-    k("Muligheder", DATA.length, "i alt") +
-    k("Inden for budget", within.length, "af "+DATA.length, "var(--ok)") +
+    k("Gruppestørrelse", N, "mand") +
+    k("Muligheder", pool.length, "med plads nok") +
+    k("Inden for budget", within.length, "af "+pool.length, "var(--ok)") +
     k("Billigste", cheap.sum.toLocaleString("da-DK"), "kr · "+cheap.d) +
-    k("Dyreste", exp.sum.toLocaleString("da-DK"), "kr · "+exp.d) +
-    k("Billigste fly", fly.fly.toLocaleString("da-DK"), "kr · "+fly.d);
-})();
+    k("Mest til forbrug", rest.rest.toLocaleString("da-DK"), "kr · "+rest.d);
+}
+keys();
 
 function render(){
   let rows = DATA.filter(r =>
+    r.cap >= N &&
     (fD==="all" || r.d===fD) &&
     (fT==="all" || r.type===fT) &&
     (!fB || r.margin>=0));
@@ -449,25 +606,25 @@ function render(){
   });
 
   document.getElementById("body").innerHTML = rows.map(r=>{
-    const rc = r.ratio===null ? '<span class="rev">ukendt</span>'
-      : `<span class="${r.ratio>=5?'bad-ratio':r.ratio<=2.5?'good-ratio':''}">${r.ratio.toFixed(1)}</span>`;
     const rt = `${String(r.rating).replace(".",",")} <span class="rev">/${r.rmax} (${r.revs})</span>`;
     const mg = r.margin>=0
       ? `<span class="pill ok">+${r.margin.toLocaleString("da-DK")}</span>`
       : `<span class="pill no">−${Math.abs(r.margin).toLocaleString("da-DK")}</span>`;
     return `<tr>
-      <td class="name"><span class="badge">${r.d}</span>${r.name}<br><span class="type">${r.type}</span></td>
+      <td class="name"><span class="badge">${r.d}</span>${r.name}<br><span class="type">${r.type}${r.ref?" · "+r.ref:""}</span></td>
       <td>${r.area}</td>
       <td class="type">${r.plads}</td>
-      <td class="num">${rc}</td>
+      <td class="num">${r.cap>=99?'<span class="rev">skalerbar</span>':`<b style="color:${r.cap>=13?'var(--ok)':r.cap>=12?'var(--warn)':'var(--bad)'}">${r.cap}</b>`}</td>
       <td class="num">${rt}</td>
       <td class="num">${kr(r.fly)}</td>
-      <td class="num">${kr(r.ophold)}</td>
+      <td class="num">${kr(r.ophold)}${(N>10&&r.type!=="Airbnb")?'<br><span class="rev">est.</span>':""}</td>
       <td class="num">${kr(r.skat)}</td>
+      <td class="num">${r.mad ? kr(r.mad) : '<span class="rev">inkl.</span>'}</td>
       <td class="num tot">${kr(r.sum)}</td>
       <td class="num">${mg}</td>
       <td class="num">${kr(r.taxa)}</td>
       <td class="num tot">${kr(r.total)}</td>
+      <td class="num" style="color:${r.rest>=2500?'var(--ok)':r.rest>=2000?'var(--warn)':'var(--bad)'};font-weight:700">${kr(r.rest)}</td>
       <td><a href="${r.url}" target="_blank" rel="noopener">Åbn</a></td>
     </tr>`;
   }).join("");
@@ -476,32 +633,36 @@ function render(){
     const mg = r.margin>=0
       ? `<span class="pill ok">+${r.margin.toLocaleString("da-DK")} kr</span>`
       : `<span class="pill no">−${Math.abs(r.margin).toLocaleString("da-DK")} kr</span>`;
-    const rc = r.ratio===null ? "ukendt"
-      : `<span class="${r.ratio>=5?'bad-ratio':r.ratio<=2.5?'good-ratio':''}">${r.ratio.toFixed(1)} mand pr. bad</span>`;
     return `<div class="card ${r.margin>=0?'under':'over'}">
       <div class="chead">
         <div class="cname"><span class="badge">${r.d}</span>${r.name}</div>
       </div>
-      <div class="cmeta">${r.type} · ${r.area}<br>${r.plads} · ${rc}<br>
+      <div class="cmeta">${r.type}${r.ref?" · "+r.ref:""} · ${r.area}<br>${r.plads} · ${r.cap>=99?"skalerbar":"plads til "+r.cap}<br>
         Rating ${String(r.rating).replace(".",",")}/${r.rmax} · ${r.revs} anmeldelser</div>
       <div class="cbig">
-        <div><div class="l">Fly + ophold + skat</div><div class="n">${kr(r.sum)}</div></div>
+        <div><div class="l">Fly + ophold + skat + mad</div><div class="n">${kr(r.sum)}</div></div>
         ${mg}
       </div>
       <div class="crows">
         <div class="crow"><span>Fly</span><span>${kr(r.fly)}</span></div>
-        <div class="crow"><span>Overnatning</span><span>${kr(r.ophold)}</span></div>
+        <div class="crow"><span>Overnatning${(N>10&&r.type!=="Airbnb")?" (est.)":""}</span><span>${kr(r.ophold)}</span></div>
         <div class="crow"><span>Turistskat</span><span>${kr(r.skat)}</span></div>
+        <div class="crow"><span>Morgenmad</span><span>${r.mad ? kr(r.mad) : "inkluderet"}</span></div>
         <div class="crow"><span>Taxa i alt</span><span>${kr(r.taxa)}</span></div>
         <div class="crow"><span><b>Alt i alt</b></span><span><b>${kr(r.total)}</b></span></div>
+        <div class="crow"><span>Til forbrug af 8.000</span><span style="color:${r.rest>=2500?'var(--ok)':r.rest>=2000?'var(--warn)':'var(--bad)'}">${kr(r.rest)}</span></div>
       </div>
       <div class="cfoot"><span></span><a href="${r.url}" target="_blank" rel="noopener">Åbn annonce →</a></div>
     </div>`;
   }).join("");
 
   const within = rows.filter(r=>r.margin>=0).length;
+  const faldet = DATA.filter(r=>r.cap < N).length;
   document.getElementById("count").textContent =
     `${rows.length} vist · ${within} inden for budget`;
+  document.getElementById("grpnote").textContent = faldet
+    ? `${faldet} boliger er for små til ${N} og er skjult`
+    : `alle ${DATA.length} boliger har plads til ${N}`;
 
   document.querySelectorAll("th.s").forEach(th=>{
     th.classList.remove("asc","desc");
@@ -509,6 +670,12 @@ function render(){
   });
 }
 
+document.querySelectorAll("#grp .f").forEach(b=>b.onclick=()=>{
+  N = +b.dataset.n;
+  document.querySelectorAll("#grp .f").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+  beregn(N); keys(); render();
+});
 document.querySelectorAll("#dest .f").forEach(b=>b.onclick=()=>{
   fD=b.dataset.d;
   document.querySelectorAll("#dest .f").forEach(x=>x.classList.remove("on"));
